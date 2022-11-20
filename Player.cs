@@ -14,6 +14,15 @@ public class Player : Node2D
     private Vector2 velocity;
     private AudioStreamPlayer2D engineAudioPlayer;
 
+    public int BoostPower = 10000;
+    public float BoostTime = 0.25f;
+    public float BoostCooldown = 3.0f;
+
+    private float currentBoostTimer = 0.0f;
+    private float currentBoostCooldown = 0.0f;
+    private Vector2 boostDirection;
+    private AudioStreamPlayer boostReadyAudioPlayer;
+
     private Viewport viewport;
 
     // Called when the node enters the scene tree for the first time.
@@ -23,6 +32,7 @@ public class Player : Node2D
         movementVector = Vector2.Zero;
         maxSpeed = (int)(Acceleration * 0.125f);
         engineAudioPlayer = GetNode<AudioStreamPlayer2D>("EngineAudioPlayer");
+        boostReadyAudioPlayer = GetNode<AudioStreamPlayer>("BoostReadyAudioPlayer");
         viewport = GetViewport();
         // viewport.GlobalCanvasTransform = viewport.GlobalCanvasTransform.Scaled(Vector2.One * 0.1f);
     }
@@ -34,6 +44,14 @@ public class Player : Node2D
 
         velocity += movementInput * Acceleration * delta;
         velocity -= velocity * 7.5f * delta;
+        if (velocity.Length() < 0.5f)
+            velocity = Vector2.Zero;
+
+        if (currentBoostTimer > 0) // we're boosting!
+        {
+            velocity += BoostPower * boostDirection * delta;
+            currentBoostTimer = Math.Max(currentBoostTimer - delta, 0); // this is a way to make sure we don't count below 0
+        }
 
         engineAudioPlayer.PitchScale = Math.Max((velocity.Length() / maxSpeed) * 1.5f, 0.05f);
 
@@ -50,6 +68,19 @@ public class Player : Node2D
             newMissile.GlobalPosition = GlobalPosition;
             newMissile.Rotation = Rotation;
             GetParent().AddChild(newMissile);
+        }
+
+        if (currentBoostCooldown > 0)
+        {
+            currentBoostCooldown = (delta >= currentBoostCooldown) ? 0 : currentBoostCooldown-delta; // this is a way to make sure we don't count below 0
+            if (currentBoostCooldown == 0)
+                boostReadyAudioPlayer.Play();
+        }
+        else if (Input.IsActionJustPressed("boost") && movementInput != Vector2.Zero)
+        {
+            currentBoostCooldown = BoostCooldown;
+            currentBoostTimer = BoostTime;
+            boostDirection = movementInput.Normalized();
         }
 
         Vector2 transformVector = GlobalPosition - (GetViewportRect().Size / 2);

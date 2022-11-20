@@ -11,5 +11,5 @@ dest_files=[ "res://.import/forceField_004.ogg-13154a7340cd387e04faf19a262f7fd8.
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

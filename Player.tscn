@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Player.cs" type="Script" id=1]
 [ext_resource path="res://Assets/spaceshooter/PNG/playerShip2_red.png" type="Texture" id=2]
 [ext_resource path="res://Assets/sci-fi-sounds/Audio/spaceEngineLow_000.ogg" type="AudioStream" id=3]
 [ext_resource path="res://Missile.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/sci-fi-sounds/Audio/forceField_004.ogg" type="AudioStream" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -26,3 +27,7 @@ texture = ExtResource( 2 )
 stream = ExtResource( 3 )
 pitch_scale = 0.3
 autoplay = true
+
+[node name="BoostReadyAudioPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+pitch_scale = 1.5
