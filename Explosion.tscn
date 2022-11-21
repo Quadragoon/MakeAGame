@@ -120,28 +120,28 @@ frames = SubResource( 2 )
 position = Vector2( 15, 0 )
 scale = Vector2( 0.2, 0.2 )
 frames = SubResource( 1 )
-frame = 1
+frame = 3
 playing = true
 
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="Pivot"]
 position = Vector2( 0, 15 )
 scale = Vector2( 0.2, 0.2 )
 frames = SubResource( 1 )
-frame = 1
+frame = 3
 playing = true
 
 [node name="AnimatedSprite3" type="AnimatedSprite" parent="Pivot"]
 position = Vector2( -15, 0 )
 scale = Vector2( 0.2, 0.2 )
 frames = SubResource( 1 )
-frame = 1
+frame = 3
 playing = true
 
 [node name="AnimatedSprite4" type="AnimatedSprite" parent="Pivot"]
 position = Vector2( 0, -15 )
 scale = Vector2( 0.2, 0.2 )
 frames = SubResource( 1 )
-frame = 1
+frame = 3
 playing = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
