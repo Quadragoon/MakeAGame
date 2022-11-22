@@ -10,8 +10,6 @@ public class Game : Node2D
     public PackedScene MobScene;
 
     private Node2D player;
-    private Path2D mobPath;
-    private PathFollow2D mobSpawnLocation;
 
     public void _NewGame()
     {
@@ -29,8 +27,6 @@ public class Game : Node2D
         Vector2 mobSpawnOffset = Mathf.Polar2Cartesian(1000, mobSpawnAngle);
         
         Enemy newEnemy = MobScene.Instance<Enemy>();
-        mobPath.Position = player.Position;
-        mobSpawnLocation.Offset = GD.Randi(); //Random location on Path2D
         newEnemy.Position = player.GlobalPosition + mobSpawnOffset; //Set pos to random location
         AddChild(newEnemy);
     }
@@ -41,8 +37,6 @@ public class Game : Node2D
         GD.Randomize();
 
         player = GetNode<Node2D>("Player");
-        mobPath = GetNode<Path2D>("MobPath");
-        mobSpawnLocation = GetNode<PathFollow2D>("MobPath/MobSpawnLocation");
     }
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.

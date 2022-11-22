@@ -19,19 +19,34 @@ public class Missile : Node2D
         
     }
 
+    public void _OnArea2DBodyEntered(Node body)
+    {
+        
+        if(body.IsInGroup("Enemies"))
+        {
+            Enemy enemy = (Enemy)body;
+            enemy.health--;
+        }
+        Explode();
+    }
+
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
         timer += delta;
         GlobalPosition += new Vector2((float)Math.Cos(GlobalRotation), (float)Math.Sin(GlobalRotation)) * Speed * delta;
-        if (timer >= 5.0f || GlobalPosition.DistanceTo(TargetLocation) <= 10)
+        if (timer >= 0.7f)
         {
-            //QueueFree();
-            Node2D newExplosion = ExplosionScene.Instance<Node2D>();
+            Explode();
+        }
+    }
+
+    private void Explode()
+    {
+        Node2D newExplosion = ExplosionScene.Instance<Node2D>();
             newExplosion.GlobalPosition = GlobalPosition;
             newExplosion.Rotation = (GD.Randf())*2*Mathf.Pi;
             GetParent().AddChild(newExplosion);
             QueueFree();
-        }
     }
 }
