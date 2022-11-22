@@ -6,6 +6,7 @@ public class Enemy : Sprite
     // Declare member variables here. Examples:
     // private int a = 2;
     // private string b = "text";
+    private float speed = 200;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -18,9 +19,8 @@ public class Enemy : Sprite
     {
         Node2D player = GetNode<Node2D>("../Player");
 
-        float speed = 200;
         float moveAmount = speed * delta;
-        var direction = (player.Position - Position).Normalized();
+        var direction = GlobalPosition.DirectionTo(player.GlobalPosition);
         Position += direction * moveAmount;
         
         LookAt(player.GlobalPosition);

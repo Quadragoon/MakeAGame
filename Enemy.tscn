@@ -4,6 +4,5 @@
 [ext_resource path="res://Assets/spaceshooter/PNG/Enemies/enemyGreen1.png" type="Texture" id=2]
 
 [node name="Sprite" type="Sprite"]
-position = Vector2( 8, 6 )
 texture = ExtResource( 2 )
 script = ExtResource( 1 )

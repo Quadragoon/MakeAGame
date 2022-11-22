@@ -16,7 +16,6 @@ script = ExtResource( 4 )
 MobScene = ExtResource( 5 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 132, 61 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 script = ExtResource( 3 )
