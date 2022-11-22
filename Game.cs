@@ -9,6 +9,10 @@ public class Game : Node2D
     [Export]  
     public PackedScene MobScene;
 
+    private Node2D player;
+    private Path2D mobPath;
+    private PathFollow2D mobSpawnLocation;
+
     public void _NewGame()
     {
         
@@ -21,23 +25,24 @@ public class Game : Node2D
 
     public void _OnMobTimerTimeout()
     {
+        float mobSpawnAngle = (GD.Randf() * Mathf.Pi*2); //Random float between 0 and 2pi
+        Vector2 mobSpawnOffset = Mathf.Polar2Cartesian(1000, mobSpawnAngle);
+        
         Enemy newEnemy = MobScene.Instance<Enemy>();
-        var mobSpawnLocation = GetNode<PathFollow2D>("MobPath/MobSpawnLocation");
+        mobPath.Position = player.Position;
         mobSpawnLocation.Offset = GD.Randi(); //Random location on Path2D
-        float direction = mobSpawnLocation.Rotation + Mathf.Pi / 2; //Direction perpendicular to the path direction
-        newEnemy.Position = mobSpawnLocation.Position; //Set pos to random location
-        direction += (float)GD.RandRange(-Mathf.Pi / 4, Mathf.Pi / 4); //Add some randomness to the enemy direction
-        newEnemy.Rotation = direction;
-        var velocity = new Vector2((float)GD.RandRange(150.0, 250.0), 0);
-        LookAt(GlobalPosition);
+        newEnemy.Position = player.GlobalPosition + mobSpawnOffset; //Set pos to random location
         AddChild(newEnemy);
-
     }
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         GD.Randomize();
+
+        player = GetNode<Node2D>("Player");
+        mobPath = GetNode<Path2D>("MobPath");
+        mobSpawnLocation = GetNode<PathFollow2D>("MobPath/MobSpawnLocation");
     }
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.

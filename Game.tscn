@@ -8,7 +8,7 @@
 
 [sub_resource type="Curve2D" id=1]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 1, -2, 0, 0, 0, 0, 1024, 0, 0, 0, 0, 0, 1024, 600, 0, 0, 0, 0, 0, 600, 0, 0, 0, 0, 1, -2 )
+"points": PoolVector2Array( 0, 0, 0, 0, 1, -2, 0, 0, 0, 0, 1022, -1, 0, 0, 0, 0, 1022, 601, 0, 0, 0, 0, 2, 601, 0, 0, 0, 0, 1, -2 )
 }
 
 [node name="Game" type="Node2D"]
@@ -36,6 +36,6 @@ curve = SubResource( 1 )
 
 [node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
 position = Vector2( 1, -2 )
-rotation = 0.00195509
+rotation = 0.000979415
 
 [connection signal="timeout" from="MobTimer" to="." method="_OnMobTimerTimeout"]
