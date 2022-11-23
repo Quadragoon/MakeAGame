@@ -25,13 +25,8 @@ public class Enemy : KinematicBody2D
             //Add on death animation
             QueueFree();
         }
-
         Node2D player = GetNode<Node2D>("../Player");
-
-        //float moveAmount = speed * delta;
         direction = GlobalPosition.DirectionTo(player.GlobalPosition);
-        //Position += direction * moveAmount;
-        
         LookAt(player.GlobalPosition);
     }
 
