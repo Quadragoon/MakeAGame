@@ -22,8 +22,8 @@ public class Parallax : ParallaxBackground
 
         originX = Mathf.Round(originX/1024);
         originY = Mathf.Round(originY/1024);
-        float posX = originX*1024;
-        float posY = originY*1024;
+        float posX = (originX)*1024;
+        float posY = (originY)*1024;
 
         backgroundSprite.Position = new Vector2(posX, posY);
         // GD.Print(backgroundSprite.Position);
