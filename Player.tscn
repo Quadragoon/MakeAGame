@@ -8,7 +8,7 @@
 
 [sub_resource type="CircleShape2D" id=1]
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" groups=["Players"]]
 collision_mask = 2
 script = ExtResource( 1 )
 MissileScene = ExtResource( 4 )
@@ -30,3 +30,8 @@ autoplay = true
 [node name="BoostReadyAudioPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
 pitch_scale = 1.5
+
+[node name="InvisibilityTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="InvisibilityTimer" to="." method="_OnInvisibilityTimerTimeout"]

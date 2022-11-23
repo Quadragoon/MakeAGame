@@ -12,6 +12,9 @@ public class Player : Node2D
     
     private int maxSpeed;
     private Vector2 velocity;
+    private int maxHealth = 5;
+    private int currentHealth;
+    private bool invinsible = false;
     private AudioStreamPlayer2D engineAudioPlayer;
 
     public int BoostPower = 10000;
@@ -22,24 +25,35 @@ public class Player : Node2D
     private float currentBoostCooldown = 0.0f;
     private Vector2 boostDirection;
     private AudioStreamPlayer boostReadyAudioPlayer;
+    private Timer invisibilityTimer;
+    private ProgressBar healthBar;
 
     private Viewport viewport;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        currentHealth = maxHealth;
         ScreenSize = GetViewportRect().Size;
         movementVector = Vector2.Zero;
         maxSpeed = (int)(Acceleration * 0.125f);
         engineAudioPlayer = GetNode<AudioStreamPlayer2D>("EngineAudioPlayer");
         boostReadyAudioPlayer = GetNode<AudioStreamPlayer>("BoostReadyAudioPlayer");
         viewport = GetViewport();
+        invisibilityTimer = GetNode<Timer>("InvisibilityTimer");
+        healthBar = GetNode<ProgressBar>("../HUD/HealthBar");
+
         // viewport.GlobalCanvasTransform = viewport.GlobalCanvasTransform.Scaled(Vector2.One * 0.1f);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
+        if(currentHealth <= 0)
+        {
+            GD.Print("DEAD");
+        }
+
         Vector2 movementInput = Input.GetVector("move_left", "move_right", "move_up", "move_down");
 
         velocity += movementInput * Acceleration * delta;
@@ -56,8 +70,8 @@ public class Player : Node2D
         engineAudioPlayer.PitchScale = Math.Max((velocity.Length() / maxSpeed) * 1.5f, 0.05f);
 
         this.GlobalPosition += velocity * delta;
-
-        Vector2 mousePos = viewport.GetMousePosition();
+        
+        Vector2 mousePos = GetGlobalMousePosition();
 
         LookAt(mousePos);
 
@@ -83,14 +97,30 @@ public class Player : Node2D
             boostDirection = movementInput.Normalized();
         }
 
-        Vector2 transformVector = GlobalPosition - (GetViewportRect().Size / 2);
-        Transform2D viewportTransform = viewport.GlobalCanvasTransform;
-        viewportTransform.origin = Vector2.Zero;
-        viewport.GlobalCanvasTransform = viewportTransform.Translated(transformVector * -1);
+        //Vector2 transformVector = GlobalPosition - (GetViewportRect().Size / 2);
+        //Transform2D viewportTransform = viewport.GlobalCanvasTransform;
+        //viewportTransform.origin = Vector2.Zero;
+        //viewport.GlobalCanvasTransform = viewportTransform.Translated(transformVector * -1);
     }
 
     public override void _Input(InputEvent inputEvent)
     {
 
+    }
+
+    public void _OnInvisibilityTimerTimeout()
+    {
+        invinsible = false;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        if(!invinsible)
+        {
+            currentHealth -= damage;
+            healthBar.Value--;
+            invinsible = true;
+            invisibilityTimer.Start();
+        }
     }
 }

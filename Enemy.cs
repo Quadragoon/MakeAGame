@@ -8,6 +8,7 @@ public class Enemy : KinematicBody2D
     // private string b = "text";
     private float speed = 200;
     public int health = 2;
+    public int damage = 1;
 
     private Vector2 direction = Vector2.Zero;
 
@@ -34,5 +35,18 @@ public class Enemy : KinematicBody2D
     {
         Vector2 velocity = direction * speed;
         velocity = MoveAndSlide(velocity);
+        int slideCount = GetSlideCount();
+        for(int i = 0; i < slideCount; i++)
+        {
+            KinematicCollision2D collision = GetSlideCollision(i);
+            if(collision.Collider is Node)
+            {
+                if(((Node)collision.Collider).IsInGroup("Players"))
+                {
+                    ((Player)collision.Collider).TakeDamage(damage);
+                }
+            }
+
+        }
     }
 }
