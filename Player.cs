@@ -26,7 +26,7 @@ public class Player : Node2D
     private Vector2 boostDirection;
     private AudioStreamPlayer boostReadyAudioPlayer;
     private Timer invisibilityTimer;
-    private ProgressBar healthBar;
+    private TextureProgress healthBar;
 
     private Viewport viewport;
 
@@ -41,7 +41,7 @@ public class Player : Node2D
         boostReadyAudioPlayer = GetNode<AudioStreamPlayer>("BoostReadyAudioPlayer");
         viewport = GetViewport();
         invisibilityTimer = GetNode<Timer>("InvisibilityTimer");
-        healthBar = GetNode<ProgressBar>("../HUD/HealthBar");
+        healthBar = GetNode<TextureProgress>("../HUD/HealthBar");
 
         // viewport.GlobalCanvasTransform = viewport.GlobalCanvasTransform.Scaled(Vector2.One * 0.1f);
     }
