@@ -44,8 +44,6 @@ public class Player : Node2D
         invisibilityTimer = GetNode<Timer>("InvisibilityTimer");
         healthBar = GetNode<TextureProgress>("../HUD/HealthContainer/HealthBar");
         boostBar = GetNode<TextureProgress>("../HUD/BoostContainer/BoostBar");
-
-        // viewport.GlobalCanvasTransform = viewport.GlobalCanvasTransform.Scaled(Vector2.One * 0.1f);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -54,18 +52,6 @@ public class Player : Node2D
         if(currentHealth <= 0)
         {
             GetTree().ChangeScene("res://Menu.tscn");
-        }
-
-        if(Input.IsActionJustPressed("ui_cancel")) //Pause game function, ui_cancel bound to esc
-        {
-            if(!GetTree().Paused)
-            {
-                GetTree().Paused = true;
-            }
-            else
-            {
-                GetTree().Paused = false;
-            }
         }
 
         Vector2 movementInput = Input.GetVector("move_left", "move_right", "move_up", "move_down");
@@ -92,10 +78,14 @@ public class Player : Node2D
         if (Input.IsActionJustPressed("fire"))
         {
             Missile newMissile = MissileScene.Instance<Missile>();
-            newMissile.TargetLocation = viewport.GetMousePosition();
             newMissile.GlobalPosition = GlobalPosition;
             newMissile.Rotation = Rotation;
             GetParent().AddChild(newMissile);
+        }
+
+        if (Input.IsActionJustPressed("fire_secondary"))
+        {
+            SuperAttack();
         }
 
         if (currentBoostCooldown > 0)
@@ -112,11 +102,6 @@ public class Player : Node2D
             currentBoostTimer = BoostTime;
             boostDirection = movementInput.Normalized();
         }
-
-        //Vector2 transformVector = GlobalPosition - (GetViewportRect().Size / 2);
-        //Transform2D viewportTransform = viewport.GlobalCanvasTransform;
-        //viewportTransform.origin = Vector2.Zero;
-        //viewport.GlobalCanvasTransform = viewportTransform.Translated(transformVector * -1);
     }
 
     public override void _Input(InputEvent inputEvent)
@@ -137,6 +122,23 @@ public class Player : Node2D
             healthBar.Value = currentHealth;
             invinsible = true;
             invisibilityTimer.Start();
+        }
+    }
+
+    private void SuperAttack()
+    {
+        Vector2 targetedLocation = GetGlobalMousePosition();
+        PackedScene targetedMissileScene = GD.Load<PackedScene>("res://MissileTargeted.tscn");
+        for (int i = 0; i < 25; i++)
+        {
+            MissileTargeted newMissile = targetedMissileScene.Instance<MissileTargeted>();
+            newMissile.GlobalPosition = GlobalPosition;
+            newMissile.Rotation = Rotation;
+            newMissile.Rotate(Mathf.Pi);
+            newMissile.Rotate(GD.Randf() - 0.5f);
+            newMissile.TargetLocation = targetedLocation;
+            newMissile.fireDelay = 0.01f * i;
+            GetParent().AddChild(newMissile);
         }
     }
 }

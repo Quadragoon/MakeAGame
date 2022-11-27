@@ -11,7 +11,7 @@ public class PauseMenu : Control
         
     }
 
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
         if(Input.IsActionJustPressed("ui_cancel")) //Pause game function, ui_cancel bound to esc
@@ -28,13 +28,16 @@ public class PauseMenu : Control
                 Visible = false;
                 GetTree().Paused = false;
             }
+                bool newPauseState = !GetTree().Paused; // the new Paused state will be the opposite of the current one
+                GetTree().Paused = newPauseState;
+                this.Visible = newPauseState; // visible if paused, not visible if not
         }
     }
 
     public void _OnResumeButtonPressed()
     {
         GetTree().Paused = false;
-        Visible = false;
+        this.Visible = false;
     }
 
     public void _OnQuitButtonPressed()
