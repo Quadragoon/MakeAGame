@@ -130,7 +130,6 @@ region_rect = Rect2( 0, 0, 1024, 1024 )
 [node name="MobTimer" type="Timer" parent="."]
 autostart = true
 
-[connection signal="pressed" from="HUD/PauseMenu/CenterContainer/VBoxContainer/ResumeButton" to="." method="_OnResumeButtonPressed"]
 [connection signal="pressed" from="HUD/PauseMenu/CenterContainer/VBoxContainer/ResumeButton" to="HUD/PauseMenu" method="_OnResumeButtonPressed"]
 [connection signal="pressed" from="HUD/PauseMenu/CenterContainer/VBoxContainer/QuitButton" to="HUD/PauseMenu" method="_OnQuitButtonPressed"]
 [connection signal="timeout" from="MobTimer" to="." method="_OnMobTimerTimeout"]
