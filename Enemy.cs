@@ -21,9 +21,11 @@ public class Enemy : KinematicBody2D
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
+        Game game = GetNode<Game>("../.");
         if(health <=0)
         {
-            //Add on death animation
+            //Todo: Add on death animation
+            game.score+=100;
             QueueFree();
         }
         Node2D player = GetNode<Node2D>("../Player");
@@ -43,6 +45,7 @@ public class Enemy : KinematicBody2D
             {
                 if(((Node)collision.Collider).IsInGroup("Players"))
                 {
+                    //TODO: Add collission sound and animation(maybe)
                     ((Player)collision.Collider).TakeDamage(damage);
                 }
             }

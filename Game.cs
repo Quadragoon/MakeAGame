@@ -6,6 +6,9 @@ public class Game : Node2D
     // Declare member variables here. Examples:
     // private int a = 2;
     // private string b = "text";
+
+    public int score = 0;
+
     [Export]  
     public PackedScene MobScene;
 

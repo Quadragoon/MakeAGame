@@ -53,7 +53,7 @@ public class Player : Node2D
     {
         if(currentHealth <= 0)
         {
-            GD.Print("DEAD");
+            GetTree().ChangeScene("res://Menu.tscn");
         }
 
         if(Input.IsActionJustPressed("ui_cancel")) //Pause game function, ui_cancel bound to esc

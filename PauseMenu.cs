@@ -3,6 +3,8 @@ using System;
 
 public class PauseMenu : Control
 {
+
+    private bool isPaused = false;
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
@@ -14,8 +16,18 @@ public class PauseMenu : Control
     {
         if(Input.IsActionJustPressed("ui_cancel")) //Pause game function, ui_cancel bound to esc
         {
-                this.Visible = true;
+            if(!isPaused)
+            {
+                isPaused = true;
+                Visible = true; //Visible is a bool that shows the scene if true and hides if false
                 GetTree().Paused = true;
+            }
+            else
+            {
+                isPaused = false;
+                Visible = false;
+                GetTree().Paused = false;
+            }
         }
     }
 
