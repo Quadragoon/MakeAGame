@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="MakeAGame"
-run/main_scene="res://Game.tscn"
+run/main_scene="res://Menu.tscn"
 config/icon="res://icon.png"
 
 [display]
@@ -19,6 +19,7 @@ config/icon="res://icon.png"
 window/size/width=900
 window/size/height=900
 mouse_cursor/custom_image="res://Assets/uipack-space/PNG/crossair_white.png"
+mouse_cursor/custom_image_hotspot=Vector2( 16, 16 )
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 

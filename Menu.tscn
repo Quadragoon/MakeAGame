@@ -1,0 +1,54 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Menu.cs" type="Script" id=1]
+[ext_resource path="res://Assets/spaceshooter/Backgrounds/purple.png" type="Texture" id=2]
+
+[node name="Menu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -107.5
+margin_top = -57.0
+margin_right = 107.5
+margin_bottom = 57.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartButton" type="Button" parent="VBoxContainer"]
+margin_right = 215.0
+margin_bottom = 35.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Start"
+
+[node name="OptionsButton" type="Button" parent="VBoxContainer"]
+margin_top = 39.0
+margin_right = 215.0
+margin_bottom = 74.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Options"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+margin_top = 78.0
+margin_right = 215.0
+margin_bottom = 114.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Quit"
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 512, 512 )
+z_index = -1
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 1024, 1024 )
+
+[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_OnStartButtonPressed"]
+[connection signal="pressed" from="VBoxContainer/OptionsButton" to="." method="_OnStartButtonPressed"]
