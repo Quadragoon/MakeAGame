@@ -138,10 +138,6 @@ playing = true
 position = Vector2( 0, -15 )
 scale = Vector2( 0.2, 0.2 )
 frames = SubResource( 1 )
-<<<<<<< Updated upstream
-=======
-frame = 2
->>>>>>> Stashed changes
 playing = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
