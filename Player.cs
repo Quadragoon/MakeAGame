@@ -14,7 +14,6 @@ public class Player : Node2D
     private Vector2 velocity;
     private int maxHealth = 5;
     private int currentHealth;
-    private int boostCooldown = 433;
     private bool invinsible = false;
     private AudioStreamPlayer2D engineAudioPlayer;
 
@@ -101,11 +100,8 @@ public class Player : Node2D
 
         if (currentBoostCooldown > 0)
         {
-            if(boostBar.Value <= boostCooldown)
-            {
-                boostBar.Value++;
-            }
             currentBoostCooldown = (delta >= currentBoostCooldown) ? 0 : currentBoostCooldown-delta; // this is a way to make sure we don't count below 0
+            boostBar.Value = 1 - (currentBoostCooldown / BoostCooldown);
             if (currentBoostCooldown == 0)
                 boostReadyAudioPlayer.Play();
         }
