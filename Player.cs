@@ -67,7 +67,7 @@ public class Player : Node2D
             currentBoostTimer = Math.Max(currentBoostTimer - delta, 0); // this is a way to make sure we don't count below 0
         }
 
-        engineAudioPlayer.PitchScale = Math.Max((velocity.Length() / maxSpeed) * 1.5f, 0.05f);
+        engineAudioPlayer.PitchScale = Math.Max((velocity.Length() / maxSpeed) * 1.5f, 0.25f);
 
         this.GlobalPosition += velocity * delta;
         

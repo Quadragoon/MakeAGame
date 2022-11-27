@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Assets/kenney_spaceshooterextension/PNG/Sprites/Missiles/spaceMissiles_040.png" type="Texture" id=1]
-[ext_resource path="res://Assets/sci-fi-sounds/Audio/thrusterFire_003.ogg" type="AudioStream" id=2]
+[ext_resource path="res://Assets/sci-fi-sounds/WAV/thrusterFire_003.wav" type="AudioStream" id=2]
 [ext_resource path="res://Missile.cs" type="Script" id=3]
 [ext_resource path="res://Explosion.tscn" type="PackedScene" id=4]
 
