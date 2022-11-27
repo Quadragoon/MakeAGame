@@ -13,6 +13,7 @@
 [ext_resource path="res://Assets/kenney_spaceshooterextension/PNG/Sprites/Effects/spaceEffects_015.png" type="Texture" id=11]
 [ext_resource path="res://Assets/kenney_spaceshooterextension/PNG/Sprites/Effects/spaceEffects_008.png" type="Texture" id=12]
 [ext_resource path="res://Assets/kenney_spaceshooterextension/PNG/Sprites/Effects/spaceEffects_010.png" type="Texture" id=13]
+[ext_resource path="res://Assets/sci-fi-sounds/WAV/explosionCrunch_003.wav" type="AudioStream" id=14]
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
