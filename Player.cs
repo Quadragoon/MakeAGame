@@ -14,6 +14,7 @@ public class Player : Node2D
     private Vector2 velocity;
     private int maxHealth = 5;
     private int currentHealth;
+    private int boostCooldown = 433;
     private bool invinsible = false;
     private AudioStreamPlayer2D engineAudioPlayer;
 
@@ -27,6 +28,7 @@ public class Player : Node2D
     private AudioStreamPlayer boostReadyAudioPlayer;
     private Timer invisibilityTimer;
     private TextureProgress healthBar;
+    private TextureProgress boostBar;
 
     private Viewport viewport;
 
@@ -41,7 +43,8 @@ public class Player : Node2D
         boostReadyAudioPlayer = GetNode<AudioStreamPlayer>("BoostReadyAudioPlayer");
         viewport = GetViewport();
         invisibilityTimer = GetNode<Timer>("InvisibilityTimer");
-        healthBar = GetNode<TextureProgress>("../HUD/HealthBar");
+        healthBar = GetNode<TextureProgress>("../HUD/HealthContainer/HealthBar");
+        boostBar = GetNode<TextureProgress>("../HUD/BoostContainer/BoostBar");
 
         // viewport.GlobalCanvasTransform = viewport.GlobalCanvasTransform.Scaled(Vector2.One * 0.1f);
     }
@@ -52,6 +55,18 @@ public class Player : Node2D
         if(currentHealth <= 0)
         {
             GD.Print("DEAD");
+        }
+
+        if(Input.IsActionJustPressed("ui_cancel")) //Pause game function, ui_cancel bound to esc
+        {
+            if(!GetTree().Paused)
+            {
+                GetTree().Paused = true;
+            }
+            else
+            {
+                GetTree().Paused = false;
+            }
         }
 
         Vector2 movementInput = Input.GetVector("move_left", "move_right", "move_up", "move_down");
@@ -86,12 +101,17 @@ public class Player : Node2D
 
         if (currentBoostCooldown > 0)
         {
+            if(boostBar.Value <= boostCooldown)
+            {
+                boostBar.Value++;
+            }
             currentBoostCooldown = (delta >= currentBoostCooldown) ? 0 : currentBoostCooldown-delta; // this is a way to make sure we don't count below 0
             if (currentBoostCooldown == 0)
                 boostReadyAudioPlayer.Play();
         }
         else if (Input.IsActionJustPressed("boost") && movementInput != Vector2.Zero)
         {
+            boostBar.Value = 0;
             currentBoostCooldown = BoostCooldown;
             currentBoostTimer = BoostTime;
             boostDirection = movementInput.Normalized();
@@ -118,7 +138,7 @@ public class Player : Node2D
         if(!invinsible)
         {
             currentHealth -= damage;
-            healthBar.Value--;
+            healthBar.Value = currentHealth;
             invinsible = true;
             invisibilityTimer.Start();
         }

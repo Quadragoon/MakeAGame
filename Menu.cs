@@ -25,7 +25,7 @@ public class Menu : Control
 
     public void _OnQuitButtonPressed()
     {
-
+        GetTree().Quit();
     }
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.

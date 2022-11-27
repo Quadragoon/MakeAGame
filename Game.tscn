@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/spaceshooter/Backgrounds/purple.png" type="Texture" id=2]
@@ -7,6 +7,9 @@
 [ext_resource path="res://Enemy.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Assets/uipack-space/PNG/squareGreen.png" type="Texture" id=6]
 [ext_resource path="res://Assets/uipack-space/PNG/squareRed.png" type="Texture" id=7]
+[ext_resource path="res://Assets/uipack-space/PNG/squareBlue.png" type="Texture" id=8]
+[ext_resource path="res://Assets/uipack-space/PNG/squareWhite.png" type="Texture" id=9]
+[ext_resource path="res://PauseMenu.cs" type="Script" id=10]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 4 )
@@ -20,20 +23,95 @@ current = true
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
-[node name="HealthBar" type="TextureProgress" parent="HUD"]
-margin_left = 4.0
-margin_top = 856.0
-margin_right = 204.0
-margin_bottom = 896.0
+[node name="HealthContainer" type="MarginContainer" parent="HUD"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -40.0
+margin_right = 150.0
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+
+[node name="HealthBar" type="TextureProgress" parent="HUD/HealthContainer"]
+margin_left = 10.0
+margin_right = 150.0
+margin_bottom = 30.0
 max_value = 5.0
 value = 5.0
 texture_under = ExtResource( 7 )
 texture_progress = ExtResource( 6 )
 nine_patch_stretch = true
-stretch_margin_left = 10
-stretch_margin_top = 10
-stretch_margin_right = 10
-stretch_margin_bottom = 10
+stretch_margin_left = 5
+stretch_margin_top = 4
+stretch_margin_right = 5
+stretch_margin_bottom = 5
+
+[node name="BoostContainer" type="MarginContainer" parent="HUD"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -150.0
+margin_top = -40.0
+custom_constants/margin_right = 10
+custom_constants/margin_bottom = 10
+
+[node name="BoostBar" type="TextureProgress" parent="HUD/BoostContainer"]
+margin_right = 140.0
+margin_bottom = 30.0
+max_value = 433.0
+value = 433.0
+texture_under = ExtResource( 9 )
+texture_progress = ExtResource( 8 )
+nine_patch_stretch = true
+stretch_margin_left = 5
+stretch_margin_top = 4
+stretch_margin_right = 5
+stretch_margin_bottom = 5
+
+[node name="PauseMenu" type="Control" parent="HUD"]
+pause_mode = 2
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 10 )
+
+[node name="Background" type="ColorRect" parent="HUD/PauseMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 860.0
+margin_bottom = 860.0
+color = Color( 0.0666667, 0.0627451, 0.0627451, 0.698039 )
+
+[node name="CenterContainer" type="CenterContainer" parent="HUD/PauseMenu"]
+margin_right = 900.0
+margin_bottom = 900.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/PauseMenu/CenterContainer"]
+margin_left = 397.0
+margin_top = 414.0
+margin_right = 503.0
+margin_bottom = 486.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 9
+
+[node name="Label" type="Label" parent="HUD/PauseMenu/CenterContainer/VBoxContainer"]
+margin_right = 106.0
+margin_bottom = 14.0
+text = "Game Paused"
+align = 1
+
+[node name="ResumeButton" type="Button" parent="HUD/PauseMenu/CenterContainer/VBoxContainer"]
+margin_top = 23.0
+margin_right = 106.0
+margin_bottom = 43.0
+text = "Resume Game"
+
+[node name="QuitButton" type="Button" parent="HUD/PauseMenu/CenterContainer/VBoxContainer"]
+margin_top = 52.0
+margin_right = 106.0
+margin_bottom = 72.0
+text = "Quit To Menu"
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 script = ExtResource( 3 )
@@ -51,4 +129,7 @@ region_rect = Rect2( 0, 0, 1024, 1024 )
 [node name="MobTimer" type="Timer" parent="."]
 autostart = true
 
+[connection signal="pressed" from="HUD/PauseMenu/CenterContainer/VBoxContainer/ResumeButton" to="." method="_OnResumeButtonPressed"]
+[connection signal="pressed" from="HUD/PauseMenu/CenterContainer/VBoxContainer/ResumeButton" to="HUD/PauseMenu" method="_OnResumeButtonPressed"]
+[connection signal="pressed" from="HUD/PauseMenu/CenterContainer/VBoxContainer/QuitButton" to="HUD/PauseMenu" method="_OnQuitButtonPressed"]
 [connection signal="timeout" from="MobTimer" to="." method="_OnMobTimerTimeout"]
