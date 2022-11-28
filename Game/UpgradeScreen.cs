@@ -10,6 +10,8 @@ public class UpgradeScreen : Control
     public int speedUpgradeAmount = 100;
     
     //TODO: Add random upgrades
+    //Upgrade health, speed, boostbar in some way, damage
+    //Add different rarities to them
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -24,7 +26,6 @@ public class UpgradeScreen : Control
         gameState.maxHealth++;
         gameState.healthBarMax++;
         gameState.healthBarLength+=28;
-        GD.Print(gameState.maxHealth);
         GetTree().ChangeScene("res://Game/EndlessMode.tscn");
     }
 
