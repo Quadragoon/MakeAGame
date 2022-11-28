@@ -61,8 +61,7 @@ public class Player : Node2D
     {
         if(currentHealth <= 0)
         {      
-            var gameState = GetNode<GameState>("../../GameState");
-            gameState.level = 1;
+            ClearGameState();
             GetTree().ChangeScene("res://Game/Menu.tscn");
         }
 
@@ -154,5 +153,17 @@ public class Player : Node2D
             newMissile.firedFrom = this;
             GetParent().AddChild(newMissile);
         }
+    }
+
+    public void ClearGameState()
+    {
+        var gameState = GetNode<GameState>("../../GameState");
+        gameState.level = 1;
+        gameState.score = 0;
+        gameState.acceleration = 2500;
+        gameState.boostPower = 5000;
+        gameState.maxHealth = 5;
+        gameState.healthBarMax = 5;
+        gameState.healthBarLength = 150;
     }
 }
