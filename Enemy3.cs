@@ -1,21 +1,21 @@
 using Godot;
 using System;
 
-public class Enemy : KinematicBody2D
+public class Enemy3 : EnemyBase
 {
     // Declare member variables here. Examples:
     // private int a = 2;
-    // private string b = "text";
-    private float speed = 200;
-    public int health = 2;
-    public int damage = 1;
+    // private string b = "text";;
 
     private Vector2 direction = Vector2.Zero;
+    
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        
+        speed = 200; //Derived from EnemyBase
+        health = 2;
+        damage = 1;
     }
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.

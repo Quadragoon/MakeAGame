@@ -20,7 +20,7 @@ public class Missile : Node2D
         
         if(body.IsInGroup("Enemies"))
         {
-            Enemy enemy = (Enemy)body;
+            EnemyBase enemy = (EnemyBase)body;
             enemy.health--;
         }
         Explode();

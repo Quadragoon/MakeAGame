@@ -4,7 +4,7 @@
 [ext_resource path="res://Assets/spaceshooter/Backgrounds/purple.png" type="Texture" id=2]
 [ext_resource path="res://Parallax.cs" type="Script" id=3]
 [ext_resource path="res://Game.cs" type="Script" id=4]
-[ext_resource path="res://Enemy.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Enemy3.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Assets/uipack-space/PNG/squareGreen.png" type="Texture" id=6]
 [ext_resource path="res://Assets/uipack-space/PNG/squareRed.png" type="Texture" id=7]
 [ext_resource path="res://Assets/uipack-space/PNG/squareBlue.png" type="Texture" id=8]
@@ -123,7 +123,6 @@ margin_top = 32.0
 margin_right = -108.0
 margin_bottom = 72.0
 rect_scale = Vector2( 2, 2 )
-text = "0000000001"
 script = ExtResource( 11 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
