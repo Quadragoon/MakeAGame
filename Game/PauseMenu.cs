@@ -16,18 +16,6 @@ public class PauseMenu : Control
     {
         if(Input.IsActionJustPressed("ui_cancel")) //Pause game function, ui_cancel bound to esc
         {
-            if(!isPaused)
-            {
-                isPaused = true;
-                Visible = true; //Visible is a bool that shows the scene if true and hides if false
-                GetTree().Paused = true;
-            }
-            else
-            {
-                isPaused = false;
-                Visible = false;
-                GetTree().Paused = false;
-            }
                 bool newPauseState = !GetTree().Paused; // the new Paused state will be the opposite of the current one
                 GetTree().Paused = newPauseState;
                 this.Visible = newPauseState; // visible if paused, not visible if not
@@ -43,6 +31,6 @@ public class PauseMenu : Control
     public void _OnQuitButtonPressed()
     {
         GetTree().Paused = false;
-        GetTree().ChangeScene("res://Menu.tscn");
+        GetTree().ChangeScene("res://Game/Menu.tscn");
     }
 }

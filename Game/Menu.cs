@@ -15,7 +15,7 @@ public class Menu : Control
 
     public void _OnStartButtonPressed()
     {
-        GetTree().ChangeScene("res://Game.tscn");
+        GetTree().ChangeScene("res://Game/ChooseGameMode.tscn");
     }
 
     public void _OnOptionsButtonPressed()
