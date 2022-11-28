@@ -11,7 +11,7 @@ public class EndlessMode : Game
 
     WeightedGroup<string> group = new WeightedGroup<string>(){
         {"Survival", 50}, //Value indicates weight, i.e. chance to happen
-        {"Slay", 0}, 
+        {"Slay", 50}, 
     };
 
     // Called when the node enters the scene tree for the first time.
@@ -26,7 +26,7 @@ public class EndlessMode : Game
         switch(objectiveType)
         {
             case "Survival":
-            GetNode<Timer>("SurvivalTimer").WaitTime = (60 + ((level-1)*5));
+            GetNode<Timer>("SurvivalTimer").WaitTime = (20 + ((level-1)*5));
             GetNode<Timer>("SurvivalTimer").Start();
             break;
             /*
@@ -50,7 +50,7 @@ public class EndlessMode : Game
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
-        if(kills >= (50 + ((level-1)*5)))
+        if(kills >= (10 + ((level-1)*5)))
         {
             GetTree().ReloadCurrentScene();
         }

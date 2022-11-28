@@ -8,16 +8,16 @@ public class Player : Node2D
 
     protected Vector2 movementVector;
     public Vector2 ScreenSize;
-    public int Acceleration = 5000;
+    public int Acceleration = 2500;
     
     private int maxSpeed;
     private Vector2 velocity;
-    private int maxHealth = 5;
-    private int currentHealth;
+    private float maxHealth = 5;
+    private float currentHealth;
     private bool invinsible = false;
     private AudioStreamPlayer2D engineAudioPlayer;
 
-    public int BoostPower = 10000;
+    public int BoostPower = 5000;
     public float BoostTime = 0.25f;
     public float BoostCooldown = 3.0f;
 
@@ -50,8 +50,10 @@ public class Player : Node2D
     public override void _Process(float delta)
     {
         if(currentHealth <= 0)
-        {
-            GetTree().ChangeScene("res://Menu.tscn");
+        {      
+            var gameState = GetNode<GameState>("../../GameState");
+            gameState.level = 1;
+            GetTree().ChangeScene("res://Game/Menu.tscn");
         }
 
         Vector2 movementInput = Input.GetVector("move_left", "move_right", "move_up", "move_down");
@@ -114,7 +116,7 @@ public class Player : Node2D
         invinsible = false;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         if(!invinsible)
         {

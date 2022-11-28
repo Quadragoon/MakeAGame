@@ -30,6 +30,8 @@ public class PauseMenu : Control
 
     public void _OnQuitButtonPressed()
     {
+        var gameState = GetNode<GameState>("../../../GameState");
+        gameState.level = 1;
         GetTree().Paused = false;
         GetTree().ChangeScene("res://Game/Menu.tscn");
     }

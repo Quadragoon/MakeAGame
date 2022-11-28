@@ -13,9 +13,10 @@ public class Enemy3 : EnemyBase
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        speed = 200; //Derived from EnemyBase
-        health = 2;
-        damage = 1;
+        var gameState = GetNode<GameState>("../../GameState");
+        speed = 350.0f * (1.00f + (gameState.level * 0.02f)); //Derived from EnemyBase
+        health = 2.0f * (1.00f + (gameState.level * 0.02f));
+        damage = 1 * (1.00f + (gameState.level * 0.02f));
     }
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -9,8 +9,8 @@ public class EnemyBase : KinematicBody2D
 
     //Can add more parameters to make every enemy more unique
     protected float speed;
-    public int health;
-    public int damage;
+    public float health;
+    public float damage;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
