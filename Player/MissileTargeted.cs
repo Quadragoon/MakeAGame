@@ -5,7 +5,7 @@ public class MissileTargeted : Missile
 {
     private float timer = 0.0f;
     public float fireDelay;
-    private float freeFloatTime = 0.5f;
+    public float freeFloatTime = .75f;
     public Vector2 TargetLocation;
     private Sprite missileSprite;
     private float freeFloatRotationSpeed;
@@ -30,6 +30,7 @@ public class MissileTargeted : Missile
         if (fireDelay > 0)
         {
             fireDelay -= Mathf.Min(delta, fireDelay);
+            freeFloatTime -= Mathf.Min(delta, freeFloatTime);
             if (fireDelay <= 0)
             {
                 Visible = true;
@@ -38,7 +39,7 @@ public class MissileTargeted : Missile
         }
         else if (freeFloatTime > 0)
         {
-            Speed -= acceleration * delta;
+            Speed -= Mathf.Sqrt(Speed) * delta * 25;
             freeFloatTime -= Mathf.Min(delta, freeFloatTime);
             missileSprite.Rotate(freeFloatRotationSpeed * delta);
             GlobalPosition += new Vector2((float)Math.Cos(GlobalRotation), (float)Math.Sin(GlobalRotation)) * Speed/2 * delta;
