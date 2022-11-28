@@ -137,7 +137,8 @@ public class Player : Node2D
             newMissile.Rotate(Mathf.Pi);
             newMissile.Rotate(GD.Randf() - 0.5f);
             newMissile.TargetLocation = targetedLocation;
-            newMissile.fireDelay = 0.01f * i;
+            newMissile.fireDelay = 0.03f * (i + 1);
+            newMissile.firedFrom = this;
             GetParent().AddChild(newMissile);
         }
     }

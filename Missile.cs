@@ -3,7 +3,7 @@ using System;
 
 public class Missile : Node2D
 {
-    public int Speed = 600;
+    public float Speed = 600;
     private float timer = 0.0f;
 
     [Export]
