@@ -10,7 +10,7 @@ public class MissileTargeted : Missile
     private Sprite missileSprite;
     private float freeFloatRotationSpeed;
     private float defaultSpriteRotation;
-    private float turnSpeed = 3f;
+    private float turnSpeed = 4f;
     private float acceleration = 400f;
     public Node2D firedFrom;
 

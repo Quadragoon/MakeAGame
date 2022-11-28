@@ -1,25 +1,33 @@
 using Godot;
 using System;
 
-public class Label : Godot.Label
+public class Objective : Label
 {
     // Declare member variables here. Examples:
     // private int a = 2;
     // private string b = "text";
-    private string score;
     private Game game;
-
+    private string objective;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        game = GetNode<Game>("../../../Game");
+        game = GetTree().CurrentScene as Game;
     }
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
-        score = game.score.ToString().PadZeros(9);
-        this.Text = score;
+        switch(game.objectiveType)
+        {
+            case "Survival":
+            this.Text = GetNode<Timer>("../../SurvivalTimer").TimeLeft.ToString();
+            break;
+
+            case "Slay":
+            this.Text = ("Kills: " + game.kills.ToString()); 
+            break;
+
+        }
     }
 }

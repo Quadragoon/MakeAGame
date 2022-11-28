@@ -26,6 +26,7 @@ public class Enemy1 : EnemyBase
         {
             //Todo: Add on death animation
             game.score+=500;
+            game.kills++;
             QueueFree();
         }
         Node2D player = GetNode<Node2D>("../Player");

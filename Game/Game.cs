@@ -12,14 +12,17 @@ public class Game : Node2D
         {"res://Enemy/Enemy3.tscn", 50}
     };
 
-    public int score = 0;
+    public int score;
+    public int level;
+    public int kills;
+    public string objectiveType;
 
     [Export]  
     public PackedScene mobScene;
 
-    private Node2D player;
+    protected Node2D player;
 
-    private Random rnd = new Random();
+    //private Random rnd = new Random();
     
 
     public void _NewGame()
@@ -47,6 +50,7 @@ public class Game : Node2D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        score = 0;
         GD.Randomize();
         
         for(int i = 0; i < GetChildCount(); i++)

@@ -1,26 +1,17 @@
 using Godot;
 using System;
 
-public class ChooseGameMode : Control
+public class GameState : Node2D
 {
     // Declare member variables here. Examples:
     // private int a = 2;
     // private string b = "text";
 
     // Called when the node enters the scene tree for the first time.
+    public int level = 1;
     public override void _Ready()
     {
         
-    }
-
-    public void _OnEndlessButtonPressed()
-    {
-        GetTree().ChangeScene("res://Game/EndlessMode.tscn");
-    }
-
-    public void _OnBackButtonPressed()
-    {
-        GetTree().ChangeScene("res://Game/Menu.tscn");
     }
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
