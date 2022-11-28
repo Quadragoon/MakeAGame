@@ -17,8 +17,9 @@ public class EndlessMode : Game
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        score = 0;
+        
         var gameState = GetNode<GameState>("../GameState");
+        score = gameState.score;
         level = gameState.level++;
         
 
@@ -40,7 +41,11 @@ public class EndlessMode : Game
 
     public void _OnSurvivalTimerTimeout()
     {
-        GetTree().ReloadCurrentScene();
+        //TODO: Add end of level animation -> maybe animate scene transition
+        var gameState = GetNode<GameState>("../GameState");
+        var gameScene = GetNode<Game>("../Game");
+        gameState.score = gameScene.score;
+        GetTree().ChangeScene("res://Game/UpgradeScreen.tscn");
     }
 
 
@@ -50,9 +55,13 @@ public class EndlessMode : Game
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
-        if(kills >= (10 + ((level-1)*5)))
+        if((kills >= (10 + ((level-1)*5))) && objectiveType == "Slay")
         {
-            GetTree().ReloadCurrentScene();
+            //TODO: Add end of level animation -> maybe animate scene transition
+            var gameState = GetNode<GameState>("../GameState");
+            var gameScene = GetNode<Game>("../Game");
+            gameState.score = gameScene.score;
+            GetTree().ChangeScene("res://Game/UpgradeScreen.tscn");
         }
     }
 }

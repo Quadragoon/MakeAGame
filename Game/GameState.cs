@@ -9,6 +9,12 @@ public class GameState : Node2D
 
     // Called when the node enters the scene tree for the first time.
     public int level = 1;
+    public int score = 0;
+    public int acceleration = 2500;
+    public int boostPower = 5000;
+    public float maxHealth = 5;
+    public float healthBarMax = 5;
+    public int healthBarLength = 150;
     public override void _Ready()
     {
         

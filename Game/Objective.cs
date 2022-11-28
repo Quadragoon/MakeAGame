@@ -21,7 +21,7 @@ public class Objective : Label
         switch(game.objectiveType)
         {
             case "Survival":
-            this.Text = GetNode<Timer>("../../SurvivalTimer").TimeLeft.ToString();
+            this.Text = (GetNode<Timer>("../../SurvivalTimer").TimeLeft).ToString("0.##");
             break;
 
             case "Slay":

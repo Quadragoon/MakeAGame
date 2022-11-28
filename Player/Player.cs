@@ -8,16 +8,16 @@ public class Player : Node2D
 
     protected Vector2 movementVector;
     public Vector2 ScreenSize;
-    public int Acceleration = 2500;
+    public int Acceleration;
     
     private int maxSpeed;
     private Vector2 velocity;
-    private float maxHealth = 5;
+    private float maxHealth;
     private float currentHealth;
     private bool invinsible = false;
     private AudioStreamPlayer2D engineAudioPlayer;
 
-    public int BoostPower = 5000;
+    public int BoostPower;
     public float BoostTime = 0.25f;
     public float BoostCooldown = 3.0f;
 
@@ -34,7 +34,17 @@ public class Player : Node2D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        var gameState = GetNode<GameState>("../../GameState");
+        Acceleration = gameState.acceleration;
+        BoostPower = gameState.boostPower;
+        maxHealth = gameState.maxHealth;
         currentHealth = maxHealth;
+
+        healthBar = GetNode<TextureProgress>("../HUD/HealthContainer/HealthBar");
+        healthBar.MaxValue = gameState.healthBarMax;
+        healthBar.Value = healthBar.MaxValue;
+        //TODO: FIX THIS healthBar.RectSize.x = gameState.healthBarLength;
+
         ScreenSize = GetViewportRect().Size;
         movementVector = Vector2.Zero;
         maxSpeed = (int)(Acceleration * 0.125f);
@@ -42,7 +52,7 @@ public class Player : Node2D
         boostReadyAudioPlayer = GetNode<AudioStreamPlayer>("BoostReadyAudioPlayer");
         viewport = GetViewport();
         invisibilityTimer = GetNode<Timer>("InvisibilityTimer");
-        healthBar = GetNode<TextureProgress>("../HUD/HealthContainer/HealthBar");
+
         boostBar = GetNode<TextureProgress>("../HUD/BoostContainer/BoostBar");
     }
 

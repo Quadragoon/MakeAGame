@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Assets/spaceshooter/Backgrounds/purple.png" type="Texture" id=1]
+[ext_resource path="res://Game/UpgradeScreen.cs" type="Script" id=2]
+[ext_resource path="res://Assets/FlatUI/kenneyUI-green.tres" type="Theme" id=3]
+[ext_resource path="res://Assets/FlatUI/kenneyUI-blue.tres" type="Theme" id=4]
+[ext_resource path="res://Assets/FlatUI/kenneyUI.tres" type="Theme" id=5]
+
+[node name="Menu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -107.5
+margin_top = -60.0
+margin_right = 107.5
+margin_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_right = 215.0
+margin_bottom = 18.0
+theme = ExtResource( 5 )
+text = "Choose an upgrade"
+align = 1
+
+[node name="UpgradeHealth" type="Button" parent="VBoxContainer"]
+margin_top = 22.0
+margin_right = 215.0
+margin_bottom = 69.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 3 )
+text = "Upgrade Health"
+
+[node name="UpgradeSpeed" type="Button" parent="VBoxContainer"]
+margin_top = 73.0
+margin_right = 215.0
+margin_bottom = 120.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 4 )
+text = "Upgrade Speed"
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 512, 512 )
+z_index = -1
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 1024, 1024 )
+
+[connection signal="pressed" from="VBoxContainer/UpgradeHealth" to="." method="_OnUpgradeHealthPressed"]
+[connection signal="pressed" from="VBoxContainer/UpgradeSpeed" to="." method="_OnUpgradeSpeedPressed"]
