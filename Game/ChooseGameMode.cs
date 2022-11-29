@@ -18,6 +18,11 @@ public class ChooseGameMode : Control
         GetTree().ChangeScene("res://Game/EndlessMode.tscn");
     }
 
+    public void _OnWIPButtonPressed()
+    {
+        GetTree().ChangeScene("res://Game/BingusMode.tscn");
+    }
+
     public void _OnBackButtonPressed()
     {
         GetTree().ChangeScene("res://Game/Menu.tscn");

@@ -53,4 +53,5 @@ region_enabled = true
 region_rect = Rect2( 0, 0, 1024, 1024 )
 
 [connection signal="pressed" from="VBoxContainer/EndlessButton" to="." method="_OnEndlessButtonPressed"]
+[connection signal="pressed" from="VBoxContainer/WIP" to="." method="_OnWIPButtonPressed"]
 [connection signal="pressed" from="VBoxContainer/BackButton" to="." method="_OnBackButtonPressed"]

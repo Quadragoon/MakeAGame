@@ -24,23 +24,23 @@ theme = ExtResource( 3 )
 
 [node name="StartButton" type="Button" parent="VBoxContainer"]
 margin_right = 215.0
-margin_bottom = 42.251
+margin_bottom = 38.251
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Start"
 
 [node name="OptionsButton" type="Button" parent="VBoxContainer"]
-margin_top = 46.0
+margin_top = 42.0
 margin_right = 215.0
-margin_bottom = 88.251
+margin_bottom = 80.251
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Options"
 
 [node name="QuitButton" type="Button" parent="VBoxContainer"]
-margin_top = 92.0
+margin_top = 84.0
 margin_right = 215.0
-margin_bottom = 134.251
+margin_bottom = 122.251
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Quit"
