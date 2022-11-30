@@ -51,13 +51,13 @@ public class Player : Node2D
         BoostPower = gameState.boostPower;
         maxHealth = gameState.maxHealth;
         currentHealth = maxHealth;
-        healthBar.MaxValue = gameState.healthBarMax;
+        healthBar.MaxValue = gameState.maxHealth;
         healthBar.Value = healthBar.MaxValue;
         maxSpeed = (int)(Acceleration * 0.125f);
         
         Control barSpacing = GetNode<Control>("/root/Game/HUD/BarContainer/BarSpacing");
-        healthBar.SizeFlagsStretchRatio = Mathf.Clamp(0.2f * gameState.healthBarMax, 6, 1);
-        barSpacing.SizeFlagsStretchRatio = Mathf.Clamp(6 - (0.2f * gameState.healthBarMax), 0, 5);
+        healthBar.SizeFlagsStretchRatio = Mathf.Clamp(0.2f * gameState.maxHealth, 1, 6);
+        barSpacing.SizeFlagsStretchRatio = Mathf.Clamp(6 - (0.2f * gameState.maxHealth), 0, 5);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -167,6 +167,5 @@ public class Player : Node2D
         gameState.acceleration = 2500;
         gameState.boostPower = 5000;
         gameState.maxHealth = 5;
-        gameState.healthBarMax = 5;
     }
 }

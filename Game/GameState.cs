@@ -13,8 +13,6 @@ public class GameState : Node2D
     public int acceleration = 2500;
     public int boostPower = 5000;
     public float maxHealth = 5;
-    public float healthBarMax = 5;
-    public int healthBarLength = 140;
     public int speedUpgradeAmount = 100;
     public override void _Ready()
     {
@@ -25,8 +23,6 @@ public class GameState : Node2D
     {
         //TODO: Add sound effects and animation -> maybe animate scene transition
         maxHealth++;
-        healthBarMax++;
-        healthBarLength += 28;
     }
 
     public void UpgradeSpeed()

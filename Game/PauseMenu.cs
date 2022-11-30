@@ -43,6 +43,5 @@ public class PauseMenu : Control
         gameState.acceleration = 2500;
         gameState.boostPower = 5000;
         gameState.maxHealth = 5;
-        gameState.healthBarMax = 5;
     }
 }
