@@ -56,8 +56,8 @@ public class Player : Node2D
         maxSpeed = (int)(Acceleration * 0.125f);
         
         Control barSpacing = GetNode<Control>("/root/Game/HUD/BarContainer/BarSpacing");
-        healthBar.SizeFlagsStretchRatio = 0.2f * gameState.healthBarMax;
-        barSpacing.SizeFlagsStretchRatio = 6 - (0.2f * gameState.healthBarMax);
+        healthBar.SizeFlagsStretchRatio = Mathf.Clamp(0.2f * gameState.healthBarMax, 6, 1);
+        barSpacing.SizeFlagsStretchRatio = Mathf.Clamp(6 - (0.2f * gameState.healthBarMax), 0, 5);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

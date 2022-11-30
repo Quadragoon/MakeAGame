@@ -9,6 +9,11 @@ public class EndlessMode : Game
     
     private GameState gameState;
     private Game gameScene;
+
+    private const int BASE_TIMER = 15;
+    private const int BASE_KILLS = 5;
+    private const int TIME_PER_LEVEL = 5;
+    private const int KILLS_PER_LEVEL = 5;
     
 
     WeightedGroup<string> group = new WeightedGroup<string>(){
@@ -30,7 +35,7 @@ public class EndlessMode : Game
         switch(objectiveType)
         {
             case "Survival":
-            GetNode<Timer>("SurvivalTimer").WaitTime = (20 + ((level-1)*5));
+            GetNode<Timer>("SurvivalTimer").WaitTime = BASE_TIMER + (level*TIME_PER_LEVEL);
             GetNode<Timer>("SurvivalTimer").Start();
             break;
             /*
@@ -56,7 +61,7 @@ public class EndlessMode : Game
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
-        if((kills >= (10 + ((level-1)*5))) && objectiveType == "Slay")
+        if((kills >= (BASE_KILLS + (level*KILLS_PER_LEVEL))) && objectiveType == "Slay")
         {
             //TODO: Add end of level animation -> maybe animate scene transition
             kills = 0;
