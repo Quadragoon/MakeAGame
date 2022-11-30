@@ -15,10 +15,47 @@ public class GameState : Node2D
     public float maxHealth = 5;
     public float healthBarMax = 5;
     public int healthBarLength = 140;
+    public int speedUpgradeAmount = 100;
     public override void _Ready()
     {
         
     }
+
+    public void UpgradeHealth()
+    {
+        //TODO: Add sound effects and animation -> maybe animate scene transition
+        maxHealth++;
+        healthBarMax++;
+        healthBarLength += 28;
+    }
+
+    public void UpgradeSpeed()
+    {
+        //TODO: Add sound effects and animation -> maybe animate scene transition
+        acceleration += speedUpgradeAmount;
+        boostPower += (speedUpgradeAmount * 2);
+    }
+
+    public void UpgradeDamage()
+    {
+
+    }
+
+    public void UpgradeAdditionalMissileChance()
+    {
+        
+    }
+
+    public void UpgradeExplosionRadius()
+    {
+        
+    }
+
+    public void UpgradeBoostCooldown()
+    {
+        
+    }
+    
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
 //  public override void _Process(float delta)
