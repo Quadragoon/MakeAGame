@@ -9,26 +9,12 @@
 [node name="Game" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
-[node name="HealthContainer" parent="HUD" index="0"]
-mouse_filter = 1
-mouse_default_cursor_shape = 2
-
-[node name="HealthBar" parent="HUD/HealthContainer" index="0"]
-grow_vertical = 0
-rect_pivot_offset = Vector2( 0, 30 )
-
-[node name="VBoxContainer" parent="HUD/PauseMenu/CenterContainer" index="0"]
-margin_left = 385.0
-margin_top = 396.0
-margin_right = 515.0
-margin_bottom = 504.0
-
-[node name="Score" parent="HUD" index="3"]
+[node name="Score" parent="HUD" index="2"]
 margin_left = -196.0
 margin_right = -116.0
 text = "testtttt"
 
-[node name="Level" type="Label" parent="HUD" index="4"]
+[node name="Level" type="Label" parent="HUD" index="3"]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -876.0
@@ -39,7 +25,7 @@ rect_scale = Vector2( 2, 2 )
 theme = ExtResource( 5 )
 text = "Level "
 
-[node name="LevelNum" type="Label" parent="HUD" index="5"]
+[node name="LevelNum" type="Label" parent="HUD" index="4"]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -740.0
@@ -50,7 +36,7 @@ rect_scale = Vector2( 2, 2 )
 theme = ExtResource( 5 )
 script = ExtResource( 3 )
 
-[node name="Objective" type="Label" parent="HUD" index="6"]
+[node name="Objective" type="Label" parent="HUD" index="5"]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -42.0

@@ -3,10 +3,6 @@ using System;
 
 public class UpgradeScreen : Control
 {
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text"
-
     public int speedUpgradeAmount = 100;
     private GameState gameState;
     private Player player;
@@ -27,7 +23,6 @@ public class UpgradeScreen : Control
         //TODO: Add sound effects and animation -> maybe animate scene transition
         gameState.maxHealth++;
         gameState.healthBarMax++;
-        gameState.healthBarLength += 28;
         ReturnToGame();
     }
 

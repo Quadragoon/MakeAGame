@@ -14,7 +14,6 @@ public class GameState : Node2D
     public int boostPower = 5000;
     public float maxHealth = 5;
     public float healthBarMax = 5;
-    public int healthBarLength = 140;
     public override void _Ready()
     {
         
