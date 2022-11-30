@@ -35,6 +35,7 @@ public class MissileTargeted : Missile
             {
                 Visible = true;
                 GlobalPosition = firedFrom.GlobalPosition;
+                TargetLocation = GetGlobalMousePosition();
             }
         }
         else if (freeFloatTime > 0)
