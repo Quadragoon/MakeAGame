@@ -25,22 +25,22 @@ grow_vertical = 2
 
 [node name="Label" type="Label" parent="VBoxContainer"]
 margin_right = 215.0
-margin_bottom = 18.0
+margin_bottom = 14.0
 theme = ExtResource( 5 )
 text = "Choose an upgrade"
 align = 1
 
 [node name="UpgradeHealth" type="Button" parent="VBoxContainer"]
-margin_top = 22.0
+margin_top = 18.0
 margin_right = 215.0
-margin_bottom = 69.0
+margin_bottom = 67.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 3 )
 text = "Upgrade Health"
 
 [node name="UpgradeSpeed" type="Button" parent="VBoxContainer"]
-margin_top = 73.0
+margin_top = 71.0
 margin_right = 215.0
 margin_bottom = 120.0
 size_flags_horizontal = 3

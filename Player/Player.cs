@@ -28,32 +28,40 @@ public class Player : Node2D
     private Timer invisibilityTimer;
     private TextureProgress healthBar;
     private TextureProgress boostBar;
-
-    private Viewport viewport;
+    private GameState gameState;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        var gameState = GetNode<GameState>("../../GameState");
+        gameState = GetNode<GameState>("/root/GameState");
+        healthBar = GetNode<TextureProgress>("../HUD/HealthContainer/HealthBar");
+        ScreenSize = GetViewportRect().Size;
+        movementVector = Vector2.Zero;
+        engineAudioPlayer = GetNode<AudioStreamPlayer2D>("EngineAudioPlayer");
+        boostReadyAudioPlayer = GetNode<AudioStreamPlayer>("BoostReadyAudioPlayer");
+        invisibilityTimer = GetNode<Timer>("InvisibilityTimer");
+        boostBar = GetNode<TextureProgress>("../HUD/BoostContainer/BoostBar");
+
+        UpdateAttributes();
+    }
+
+    public void UpdateAttributes()
+    {
         Acceleration = gameState.acceleration;
         BoostPower = gameState.boostPower;
         maxHealth = gameState.maxHealth;
         currentHealth = maxHealth;
-
-        healthBar = GetNode<TextureProgress>("../HUD/HealthContainer/HealthBar");
         healthBar.MaxValue = gameState.healthBarMax;
         healthBar.Value = healthBar.MaxValue;
-        //TODO: FIX THIS healthBar.RectSize.x = gameState.healthBarLength;
-
-        ScreenSize = GetViewportRect().Size;
-        movementVector = Vector2.Zero;
         maxSpeed = (int)(Acceleration * 0.125f);
-        engineAudioPlayer = GetNode<AudioStreamPlayer2D>("EngineAudioPlayer");
-        boostReadyAudioPlayer = GetNode<AudioStreamPlayer>("BoostReadyAudioPlayer");
-        viewport = GetViewport();
-        invisibilityTimer = GetNode<Timer>("InvisibilityTimer");
-
-        boostBar = GetNode<TextureProgress>("../HUD/BoostContainer/BoostBar");
+        
+        GD.Print(gameState.healthBarLength);
+        Vector2 newHealthBarSize = new Vector2(gameState.healthBarLength, 30);
+        MarginContainer healthBarContainer = GetNode<MarginContainer>("/root/Game/HUD/HealthContainer");
+        GD.Print(healthBar.RectSize);
+        healthBarContainer.MarginRight = gameState.healthBarLength;
+        // healthBar.RectSize = newHealthBarSize;
+        GD.Print(healthBar.RectSize);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

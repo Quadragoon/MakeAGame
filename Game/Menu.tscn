@@ -45,7 +45,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Quit"
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Pepsi" type="Sprite" parent="."]
 position = Vector2( 512, 512 )
 z_index = -1
 texture = ExtResource( 1 )
