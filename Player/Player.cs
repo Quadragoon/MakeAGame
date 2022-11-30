@@ -34,13 +34,13 @@ public class Player : Node2D
     public override void _Ready()
     {
         gameState = GetNode<GameState>("/root/GameState");
-        healthBar = GetNode<TextureProgress>("../HUD/HealthContainer/HealthBar");
+        healthBar = GetNode<TextureProgress>("/root/Game/HUD/BarContainer/HealthBar");
         ScreenSize = GetViewportRect().Size;
         movementVector = Vector2.Zero;
         engineAudioPlayer = GetNode<AudioStreamPlayer2D>("EngineAudioPlayer");
         boostReadyAudioPlayer = GetNode<AudioStreamPlayer>("BoostReadyAudioPlayer");
         invisibilityTimer = GetNode<Timer>("InvisibilityTimer");
-        boostBar = GetNode<TextureProgress>("../HUD/BoostContainer/BoostBar");
+        boostBar = GetNode<TextureProgress>("/root/Game/HUD/BarContainer/BoostBar");
 
         UpdateAttributes();
     }
@@ -55,13 +55,9 @@ public class Player : Node2D
         healthBar.Value = healthBar.MaxValue;
         maxSpeed = (int)(Acceleration * 0.125f);
         
-        GD.Print(gameState.healthBarLength);
-        Vector2 newHealthBarSize = new Vector2(gameState.healthBarLength, 30);
-        MarginContainer healthBarContainer = GetNode<MarginContainer>("/root/Game/HUD/HealthContainer");
-        GD.Print(healthBar.RectSize);
-        healthBarContainer.MarginRight = gameState.healthBarLength;
-        // healthBar.RectSize = newHealthBarSize;
-        GD.Print(healthBar.RectSize);
+        Control barSpacing = GetNode<Control>("/root/Game/HUD/BarContainer/BarSpacing");
+        healthBar.SizeFlagsStretchRatio = Mathf.Clamp(0.2f * gameState.healthBarMax, 6, 1);
+        barSpacing.SizeFlagsStretchRatio = Mathf.Clamp(6 - (0.2f * gameState.healthBarMax), 0, 5);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -172,6 +168,5 @@ public class Player : Node2D
         gameState.boostPower = 5000;
         gameState.maxHealth = 5;
         gameState.healthBarMax = 5;
-        gameState.healthBarLength = 150;
     }
 }

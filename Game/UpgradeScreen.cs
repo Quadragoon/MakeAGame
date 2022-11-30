@@ -16,10 +16,6 @@ class UpgradeOption
 
 public class UpgradeScreen : Control
 {
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text"
-
     private GameState gameState;
     private Player player;
     private EndlessMode endlessMode;

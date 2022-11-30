@@ -37,13 +37,12 @@ public class PauseMenu : Control
 
     public void ClearGameState()
     {
-        var gameState = GetNode<GameState>("../../../GameState");
+        var gameState = GetNode<GameState>("/root/GameState");
         gameState.level = 1;
         gameState.score = 0;
         gameState.acceleration = 2500;
         gameState.boostPower = 5000;
         gameState.maxHealth = 5;
         gameState.healthBarMax = 5;
-        gameState.healthBarLength = 150;
     }
 }
