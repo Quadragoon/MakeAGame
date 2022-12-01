@@ -24,7 +24,6 @@ public class GameState : Node2D
 
     //PROBABLY UNNECESSARY BOOLS
     public bool upgradeMode = false;
-    public bool deadBoss = false;
     
     public override void _Ready()
     {
@@ -71,7 +70,7 @@ public class GameState : Node2D
     
     public void WildShots()
     {
-        damage += 2;
+        damage *= 2;
         stormtrooper = true;
     }
 

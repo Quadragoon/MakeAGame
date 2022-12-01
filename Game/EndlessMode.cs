@@ -65,13 +65,7 @@ public class EndlessMode : Game
         if(((kills >= (BASE_KILLS + (level*KILLS_PER_LEVEL))) && objectiveType == "Slay") && level % 5 != 0) 
         {
             //TODO: Add end of level animation -> maybe animate scene transition
-            gameState.deadBoss = false;
             OfferUpgrade();
-        }
-        else if(gameState.deadBoss)
-        {
-            gameState.deadBoss = false;
-            OfferUpgrade(); //TODO: Offer unique rewards
         }
     }
 
@@ -97,6 +91,7 @@ public class EndlessMode : Game
         if(level % 5 == 0)
         {
             //TODO: Add boss
+
             objectiveType = "Boss";
             float mobSpawnAngle = (GD.Randf() * Mathf.Pi*2); //Random float between 0 and 2pi
             Vector2 mobSpawnOffset = Mathf.Polar2Cartesian(1000, mobSpawnAngle);
@@ -118,5 +113,10 @@ public class EndlessMode : Game
         }
         
             
+    }
+
+    public void DeadBoss()
+    {
+        OfferUpgrade(); //TODO: Offer unique rewards
     }
 }
