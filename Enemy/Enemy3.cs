@@ -19,7 +19,7 @@ public class Enemy3 : EnemyBase
         damage = 1 * (1.0f + (gameState.level-1.0f) * 0.05f);
     }
 
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
         Game game = GetNode<Game>("../.");

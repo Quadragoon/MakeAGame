@@ -12,7 +12,6 @@ public class EndlessMode : Game
     private Label objective;
     private Timer mobTimer;
     
-
     private const int BASE_TIMER = 10;
     private const int BASE_KILLS = 5;
     private const int TIME_PER_LEVEL = 1;
@@ -88,14 +87,14 @@ public class EndlessMode : Game
     {
         level++;
         kills = 0;
-        if(level % 5 == 0)
+        if(level % 5 == 0) //Every 5th level spawn a boss. TODO: Add superbosses every 10th level?
         {
-            //TODO: Add boss
+            //TODO: Remove normal enemies spawning during boss battles
 
+            mobTimer.Paused = true; //Pauses enemy spawning during bossfight
             objectiveType = "Boss";
             float mobSpawnAngle = (GD.Randf() * Mathf.Pi*2); //Random float between 0 and 2pi
             Vector2 mobSpawnOffset = Mathf.Polar2Cartesian(1000, mobSpawnAngle);
-
             string mobPath = bosses.GetItem();
             mobScene = ResourceLoader.Load(mobPath) as PackedScene;
             KinematicBody2D mob = mobScene.Instance() as KinematicBody2D;
@@ -117,6 +116,7 @@ public class EndlessMode : Game
 
     public void DeadBoss()
     {
+        mobTimer.Paused = false;
         OfferUpgrade(); //TODO: Offer unique rewards
     }
 }

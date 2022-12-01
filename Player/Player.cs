@@ -202,7 +202,7 @@ public class Player : Node2D
     {
         Vector2 targetedLocation = GetGlobalMousePosition();
         PackedScene targetedMissileScene = GD.Load<PackedScene>("res://Player/MissileTargeted.tscn");
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 100; i++)
         {
             float targetAreaRadius = 50.0f;
             MissileTargeted newMissile = targetedMissileScene.Instance<MissileTargeted>();
@@ -225,5 +225,12 @@ public class Player : Node2D
         gameState.acceleration = 2500;
         gameState.boostPower = 5000;
         gameState.maxHealth = 5;
+        gameState.damage = 1;
+        gameState.missileMultiplierChance = 0;
+        gameState.explosionRadiusScale = 1;
+        gameState.speedUpgradeAmount = 100;
+        gameState.fireDelay = 0.2f;
+        gameState.stormtrooper = false;
+        gameState.boostCooldown = 3.0f;
     }
 }
