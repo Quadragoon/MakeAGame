@@ -28,13 +28,14 @@ public class UpgradeScreen : Control
     private Label objective;
     
     WeightedGroup<UpgradeOption> group = new WeightedGroup<UpgradeOption>(){
-        {new UpgradeOption("Health", "Common"), 50}, 
-        {new UpgradeOption("Speed", "Common"), 50}, 
-        {new UpgradeOption("Damage", "Uncommon"), 25}, 
-        {new UpgradeOption("Attack Speed", "Uncommon"), 25},
-        {new UpgradeOption("Additional Missile", "Extraordinary"), 500}, 
+        {new UpgradeOption("Health", "Common"), 75}, 
+        {new UpgradeOption("Speed", "Common"), 75}, 
+        {new UpgradeOption("Damage", "Epic"), 5}, 
+        {new UpgradeOption("Attack Speed", "Epic"), 5},
+        {new UpgradeOption("Additional Missile", "Extraordinary"), 2}, 
         {new UpgradeOption("Explosion Radius", "Rare"), 10}, 
-        {new UpgradeOption("Boost Cooldown", "Rare"), 10}, 
+        {new UpgradeOption("Boost Cooldown", "Uncommon"), 25},
+        {new UpgradeOption("Large damage boost at a cost", "Cursed", true), 2},
 
     };
     
@@ -133,6 +134,10 @@ public class UpgradeScreen : Control
 
             case "Boost Cooldown":
                 gameState.UpgradeBoostCooldown();
+            break;
+
+            case "Large damage boost at a cost":
+                gameState.WildShots();
             break;
         }
         //TODO: Apply upgrades to character

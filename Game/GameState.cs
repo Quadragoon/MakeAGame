@@ -18,6 +18,7 @@ public class GameState : Node2D
     public float explosionRadiusScale = 1;
     public int speedUpgradeAmount = 100;
     public float fireDelay = 0.2f;
+    public bool stormtrooper = false;
     public float boostCooldown = 3.0f;
 
 
@@ -68,6 +69,11 @@ public class GameState : Node2D
         fireDelay /= 1.1f;
     }
     
+    public void WildShots()
+    {
+        damage += 2;
+        stormtrooper = true;
+    }
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
 //  public override void _Process(float delta)

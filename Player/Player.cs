@@ -96,8 +96,14 @@ public class Player : Node2D
         if (Input.IsActionPressed("fire") && fireDelay <= 0f)
         {
             fireDelay = gameState.fireDelay;
+            bool stormtrooper = gameState.stormtrooper;
             float fireangle = 0.2f;
             int extraMissilesFired=0;
+
+            if(stormtrooper){
+                fireangle = rand.Next(-15,15);
+                fireangle /= 10f;
+            }
 
             //Check how many extra missiles will be fired 
             for (int i = 0; i < gameState.missileMultiplierChance/100; i++){
@@ -126,7 +132,8 @@ public class Player : Node2D
             }
 
             //fire the last/first missile in the middle or to the side depending on if even or odd
-            if(extraMissilesFired%2 == 0){
+            if(extraMissilesFired%2 == 0 && !stormtrooper){
+
                 fireangle=0.0f;
             }
             

@@ -15,9 +15,9 @@ public class Boss1 : EnemyBase
     public override void _Ready()
     {
         gameState = GetNode<GameState>("../../GameState");
-        speed = 350 * (1.0f + (gameState.level-1.0f) * 0.02f); //Derived from EnemyBase
-        health = 150 * (1.0f + (gameState.level-1.0f) * 0.02f);
-        damage = 5 * (1.0f + (gameState.level-1.0f) * 0.02f);
+        speed = 350 * (1.0f + (gameState.level-1.0f) * 0.04f); //Derived from EnemyBase
+        health = 150 * (1.0f + (gameState.level-1.0f) * 1.2f);
+        damage = 5 * (1.0f + (gameState.level-1.0f) * 0.1f);
     }
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -26,7 +26,7 @@ public class Boss1 : EnemyBase
         Game game = GetNode<Game>("../.");
         if(health <=0)
         {
-            //Todo: Add on death animation
+            //Todo: Add on death animation, ADD BOSS UNIQUE ATTACKS
             game.score+=500;
             game.kills++;
             gameState.deadBoss = true;

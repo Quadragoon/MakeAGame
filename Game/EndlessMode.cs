@@ -10,12 +10,13 @@ public class EndlessMode : Game
     private GameState gameState;
     private Game gameScene;
     private Label objective;
+    private Timer mobTimer;
     
 
-    private const int BASE_TIMER = 15;
+    private const int BASE_TIMER = 10;
     private const int BASE_KILLS = 5;
-    private const int TIME_PER_LEVEL = 5;
-    private const int KILLS_PER_LEVEL = 0;
+    private const int TIME_PER_LEVEL = 1;
+    private const int KILLS_PER_LEVEL = 5;
     
 
     WeightedGroup<string> group = new WeightedGroup<string>(){
@@ -34,6 +35,8 @@ public class EndlessMode : Game
         gameState = GetNode<GameState>("../GameState");
         gameScene = GetNode<Game>("../Game");
         objective = GetNode<Label>("HUD/Objective");
+        mobTimer = GetNode<Timer>("MobTimer");
+
         level = 1;
         //score = gameState.score;
         //level = gameState.level++;
@@ -59,11 +62,16 @@ public class EndlessMode : Game
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
-        if(((kills >= (BASE_KILLS + (level*KILLS_PER_LEVEL))) && objectiveType == "Slay") && level % 5 != 0 || gameState.deadBoss) 
+        if(((kills >= (BASE_KILLS + (level*KILLS_PER_LEVEL))) && objectiveType == "Slay") && level % 5 != 0) 
         {
             //TODO: Add end of level animation -> maybe animate scene transition
             gameState.deadBoss = false;
             OfferUpgrade();
+        }
+        else if(gameState.deadBoss)
+        {
+            gameState.deadBoss = false;
+            OfferUpgrade(); //TODO: Offer unique rewards
         }
     }
 
@@ -71,6 +79,7 @@ public class EndlessMode : Game
     {
         //gameState.score = gameScene.score;
         // GetTree().ChangeScene("res://Game/UpgradeScreen.tscn");
+        mobTimer.WaitTime /= 1.05f;
         Control upgradeScreen = GD.Load<PackedScene>("res://Game/UpgradeScreen.tscn").Instance() as Control;
         upgradeScreen.ShowOnTop = true;
         CanvasLayer hud = gameScene.GetNode<CanvasLayer>("HUD");
