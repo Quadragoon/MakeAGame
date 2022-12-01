@@ -16,7 +16,7 @@ public class Boss1 : EnemyBase
     {
         gameState = GetNode<GameState>("../../GameState");
         speed = 350 * (1.0f + (gameState.level-1.0f) * 0.04f); //Derived from EnemyBase
-        health = 150 * (1.0f + (gameState.level-1.0f) * 1.2f);
+        health = 150 * (1.0f + (gameState.level-1.0f) * 2.0f);
         damage = 5 * (1.0f + (gameState.level-1.0f) * 0.1f);
     }
 

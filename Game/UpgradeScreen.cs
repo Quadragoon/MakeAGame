@@ -32,10 +32,10 @@ public class UpgradeScreen : Control
         {new UpgradeOption("Speed", "Common"), 75}, 
         {new UpgradeOption("Damage", "Epic"), 5}, 
         {new UpgradeOption("Attack Speed", "Epic"), 5},
-        {new UpgradeOption("Additional Missile", "Extraordinary"), 2}, 
+        {new UpgradeOption("Additional Missile", "Extraordinary"), 200}, 
         {new UpgradeOption("Explosion Radius", "Rare"), 10}, 
         {new UpgradeOption("Boost Cooldown", "Uncommon"), 25},
-        {new UpgradeOption("Large damage boost at a cost", "Cursed", true), 2},
+        {new UpgradeOption("Large damage boost at a cost", "Cursed", true), 200},
 
     };
     

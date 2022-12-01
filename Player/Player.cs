@@ -43,7 +43,7 @@ public class Player : Node2D
         boostReadyAudioPlayer = GetNode<AudioStreamPlayer>("BoostReadyAudioPlayer");
         invisibilityTimer = GetNode<Timer>("InvisibilityTimer");
         boostBar = GetNode<TextureProgress>("/root/Game/HUD/BarContainer/BoostBar");
-
+        
         UpdateAttributes();
     }
 
@@ -100,10 +100,7 @@ public class Player : Node2D
             float fireangle = 0.2f;
             int extraMissilesFired=0;
 
-            if(stormtrooper){
-                fireangle = rand.Next(-15,15);
-                fireangle /= 10f;
-            }
+            
 
             //Check how many extra missiles will be fired 
             for (int i = 0; i < gameState.missileMultiplierChance/100; i++){
@@ -121,6 +118,11 @@ public class Player : Node2D
                 }
                 Missile additionalMissile = MissileScene.Instance<Missile>();
                 additionalMissile.GlobalPosition = GlobalPosition;
+
+                if(stormtrooper){
+                fireangle = rand.Next(-15,15);
+                fireangle /= 10f;
+                }
                 
                 //TODO: Make nicer pairs in the middle
                 if(i%2 == 0){
@@ -137,6 +139,10 @@ public class Player : Node2D
                 fireangle=0.0f;
             }
             
+            if(stormtrooper){
+                fireangle = rand.Next(-15,15);
+                fireangle /= 10f;
+            }
             Missile newMissile = MissileScene.Instance<Missile>();
             newMissile.GlobalPosition = GlobalPosition;
             newMissile.Rotation = Rotation - fireangle;
