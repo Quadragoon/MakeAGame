@@ -1,22 +1,23 @@
 using Godot;
 using System;
 
-public class Enemy1 : EnemyBase
+public class Boss1 : EnemyBase
 {
     // Declare member variables here. Examples:
     // private int a = 2;
     // private string b = "text";;
 
     private Vector2 direction = Vector2.Zero;
+    private GameState gameState;
     
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        var gameState = GetNode<GameState>("../../GameState");
-        speed = 500 * (1.0f + (gameState.level-1.0f) * 0.02f); //Derived from EnemyBase
-        health = 1 * (1.0f + (gameState.level-1.0f) * 0.02f);
-        damage = 2 * (1.0f + (gameState.level-1.0f) * 0.02f);
+        gameState = GetNode<GameState>("../../GameState");
+        speed = 350 * (1.0f + (gameState.level-1.0f) * 0.02f); //Derived from EnemyBase
+        health = 150 * (1.0f + (gameState.level-1.0f) * 0.02f);
+        damage = 5 * (1.0f + (gameState.level-1.0f) * 0.02f);
     }
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -28,6 +29,7 @@ public class Enemy1 : EnemyBase
             //Todo: Add on death animation
             game.score+=500;
             game.kills++;
+            gameState.deadBoss = true;
             QueueFree();
         }
         Node2D player = GetNode<Node2D>("../Player");

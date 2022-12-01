@@ -5,17 +5,19 @@ public class PauseMenu : Control
 {
 
     private bool isPaused = false;
+    private GameState gameState;
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        
+        gameState = GetNode<GameState>("/root/GameState");
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
-        if(Input.IsActionJustPressed("ui_cancel")) //Pause game function, ui_cancel bound to esc
+        if(Input.IsActionJustPressed("ui_cancel") == true && gameState.upgradeMode == false) //Pause game function, ui_cancel bound to esc
         {
+                GD.Print(GetTree().CurrentScene.Name);
                 bool newPauseState = !GetTree().Paused; // the new Paused state will be the opposite of the current one
                 GetTree().Paused = newPauseState;
                 this.Visible = newPauseState; // visible if paused, not visible if not

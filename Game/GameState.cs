@@ -13,7 +13,18 @@ public class GameState : Node2D
     public int acceleration = 2500;
     public int boostPower = 5000;
     public float maxHealth = 5;
+    public float damage = 1;
+    public float missileMultiplierChance = 0; //chance of new missile, 100 -> one guaranteed extra missile, 150 -> one extra and a chance for a third missile
+    public float explosionRadiusScale = 1;
     public int speedUpgradeAmount = 100;
+    public float fireDelay = 0.2f;
+    public float boostCooldown = 3.0f;
+
+
+    //PROBABLY UNNECESSARY BOOLS
+    public bool upgradeMode = false;
+    public bool deadBoss = false;
+    
     public override void _Ready()
     {
         
@@ -34,22 +45,27 @@ public class GameState : Node2D
 
     public void UpgradeDamage()
     {
-
+        damage += 0.5f;
     }
 
     public void UpgradeAdditionalMissileChance()
     {
-        
+        missileMultiplierChance += 100.0f;
     }
 
     public void UpgradeExplosionRadius()
     {
-        
+        explosionRadiusScale+=0.5f;
     }
 
     public void UpgradeBoostCooldown()
     {
-        
+        boostCooldown /= 1.2f;
+    }
+
+    public void UpgradeAttackSpeed()
+    {
+        fireDelay /= 1.1f;
     }
     
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Assets/spaceshooter/PNG/Lasers/laserRed08.png" type="Texture" id=1]
 [ext_resource path="res://Assets/spaceshooter/PNG/Lasers/laserRed09.png" type="Texture" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://Assets/kenney_spaceshooterextension/PNG/Sprites/Effects/spaceEffects_008.png" type="Texture" id=12]
 [ext_resource path="res://Assets/kenney_spaceshooterextension/PNG/Sprites/Effects/spaceEffects_010.png" type="Texture" id=13]
 [ext_resource path="res://Assets/sci-fi-sounds/WAV/explosionCrunch_003.wav" type="AudioStream" id=14]
+[ext_resource path="res://Player/Explosion.cs" type="Script" id=15]
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
@@ -109,7 +110,11 @@ tracks/5/keys = {
 } ]
 }
 
+[sub_resource type="CircleShape2D" id=4]
+radius = 15.0
+
 [node name="Explosion" type="Node2D"]
+script = ExtResource( 15 )
 
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
@@ -152,3 +157,12 @@ anims/explode = SubResource( 3 )
 stream = ExtResource( 14 )
 pitch_scale = 0.55
 autoplay = true
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 4 )
+
+[connection signal="body_entered" from="Area2D" to="." method="_OnArea2DBodyEntered"]

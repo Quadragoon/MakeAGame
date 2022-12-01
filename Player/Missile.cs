@@ -8,11 +8,12 @@ public class Missile : Node2D
 
     [Export]
     public PackedScene ExplosionScene;
+    private GameState gameState;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        
+        gameState = GetNode<GameState>("/root/GameState");
     }
 
     public void _OnArea2DBodyEntered(Node body)
@@ -21,7 +22,6 @@ public class Missile : Node2D
         if(body.IsInGroup("Enemies"))
         {
             EnemyBase enemy = (EnemyBase)body;
-            enemy.health--;
         }
         Explode();
     }
@@ -39,10 +39,12 @@ public class Missile : Node2D
 
     protected void Explode()
     {
-        Node2D newExplosion = ExplosionScene.Instance<Node2D>();
+        Explosion newExplosion = ExplosionScene.Instance<Explosion>();
         newExplosion.GlobalPosition = GlobalPosition;
         newExplosion.Rotation = (GD.Randf())*2*Mathf.Pi;
-        GetParent().AddChild(newExplosion);
+        newExplosion.Scale = new Vector2(gameState.explosionRadiusScale, gameState.explosionRadiusScale);
+        newExplosion.damage = gameState.damage;
+        GetParent().CallDeferred("add_child", newExplosion);
         QueueFree();
     }
 }

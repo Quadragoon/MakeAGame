@@ -13,6 +13,7 @@ public class MissileTargeted : Missile
     private float turnSpeed = 4f;
     private float acceleration = 400f;
     public Node2D firedFrom;
+    private GameState gameState;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -22,8 +23,19 @@ public class MissileTargeted : Missile
         missileSprite = GetNode<Sprite>("Sprite");
         defaultSpriteRotation = missileSprite.Rotation;
         freeFloatRotationSpeed = (GD.Randf() - 0.5f) * 50;
+
+        gameState = GetNode<GameState>("/root/GameState");
     }
 
+    public void _OnArea2DBodyEntered(Node body)
+    {
+        
+        if(body.IsInGroup("Enemies"))
+        {
+            EnemyBase enemy = (EnemyBase)body;
+        }
+        clusterExplode();
+    }
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
@@ -58,8 +70,19 @@ public class MissileTargeted : Missile
             GlobalPosition += new Vector2((float)Math.Cos(GlobalRotation), (float)Math.Sin(GlobalRotation)) * Speed * delta;
             if (timer >= 2.0f || GlobalPosition.DistanceTo(TargetLocation) < 5)
             {
-                Explode();
+                clusterExplode();
             }
         }
+    }
+
+    protected void clusterExplode()
+    {
+        Explosion newExplosion = ExplosionScene.Instance<Explosion>();
+        newExplosion.GlobalPosition = GlobalPosition;
+        newExplosion.Rotation = (GD.Randf())*2*Mathf.Pi;
+        newExplosion.Scale = new Vector2(gameState.explosionRadiusScale, gameState.explosionRadiusScale);
+        newExplosion.damage = gameState.damage;
+        GetParent().CallDeferred("add_child", newExplosion);
+        QueueFree();
     }
 }

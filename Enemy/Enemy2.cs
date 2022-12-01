@@ -14,9 +14,9 @@ public class Enemy2 : EnemyBase
     public override void _Ready()
     {
         var gameState = GetNode<GameState>("../../GameState");
-        speed = 200 * (1.00f + (gameState.level * 0.02f)); //Derived from EnemyBase
-        health = 4 * (1.00f + (gameState.level * 0.02f));
-        damage = 2 * (1.00f + (gameState.level * 0.02f));
+        speed = 200 * (1.0f + (gameState.level-1.0f) * 0.02f); //Derived from EnemyBase
+        health = 4 * (1.0f + (gameState.level-1.0f) * 0.02f);
+        damage = 2 * (1.0f + (gameState.level-1.0f) * 0.02f);
     }
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -29,6 +29,8 @@ public class Player : Node2D
     private TextureProgress healthBar;
     private TextureProgress boostBar;
     private GameState gameState;
+    private Random rand = new Random();
+    private float fireDelay;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -54,6 +56,7 @@ public class Player : Node2D
         healthBar.MaxValue = gameState.maxHealth;
         healthBar.Value = healthBar.MaxValue;
         maxSpeed = (int)(Acceleration * 0.125f);
+        BoostCooldown = gameState.boostCooldown;
         
         Control barSpacing = GetNode<Control>("/root/Game/HUD/BarContainer/BarSpacing");
         healthBar.SizeFlagsStretchRatio = Mathf.Clamp(0.2f * gameState.maxHealth, 1, 6);
@@ -90,12 +93,54 @@ public class Player : Node2D
 
         LookAt(mousePos);
 
-        if (Input.IsActionJustPressed("fire"))
+        if (Input.IsActionPressed("fire") && fireDelay <= 0f)
         {
+            fireDelay = gameState.fireDelay;
+            float fireangle = 0.2f;
+            int extraMissilesFired=0;
+
+            //Check how many extra missiles will be fired 
+            for (int i = 0; i < gameState.missileMultiplierChance/100; i++){
+                if((rand.Next(0, 100)) < gameState.missileMultiplierChance - 100*i)
+                { 
+                    extraMissilesFired++; 
+                }
+            }
+
+            //Fire extra missiles with different angles depending on if even or odd
+            for (int i = 0; i < extraMissilesFired; i++){
+                int isEven = 0;
+                if (extraMissilesFired%2 == 1){
+                    isEven = 1;
+                }
+                Missile additionalMissile = MissileScene.Instance<Missile>();
+                additionalMissile.GlobalPosition = GlobalPosition;
+                
+                //TODO: Make nicer pairs in the middle
+                if(i%2 == 0){
+                    additionalMissile.Rotation = Rotation + fireangle * (1 + (isEven + i)/2);
+                } else{
+                    additionalMissile.Rotation = Rotation - fireangle * (1 + (isEven + i)/2);
+                }
+                    GetParent().AddChild(additionalMissile);
+            }
+
+            //fire the last/first missile in the middle or to the side depending on if even or odd
+            if(extraMissilesFired%2 == 0){
+                fireangle=0.0f;
+            }
+            
             Missile newMissile = MissileScene.Instance<Missile>();
             newMissile.GlobalPosition = GlobalPosition;
-            newMissile.Rotation = Rotation;
+            newMissile.Rotation = Rotation - fireangle;
             GetParent().AddChild(newMissile);
+
+            
+
+        }
+        else
+        {
+            fireDelay-=delta;
         }
 
         if (Input.IsActionJustPressed("fire_secondary"))
@@ -144,7 +189,7 @@ public class Player : Node2D
     {
         Vector2 targetedLocation = GetGlobalMousePosition();
         PackedScene targetedMissileScene = GD.Load<PackedScene>("res://Player/MissileTargeted.tscn");
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 20; i++)
         {
             float targetAreaRadius = 50.0f;
             MissileTargeted newMissile = targetedMissileScene.Instance<MissileTargeted>();

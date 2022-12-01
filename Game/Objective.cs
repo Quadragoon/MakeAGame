@@ -28,6 +28,10 @@ public class Objective : Label
             this.Text = ("Kills: " + game.kills.ToString()); 
             break;
 
+            case "Boss":
+            this.Text = "Bosstime Baby";
+            break;
+
         }
     }
 }

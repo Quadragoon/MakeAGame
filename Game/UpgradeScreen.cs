@@ -25,12 +25,14 @@ public class UpgradeScreen : Control
     private Button button1;
     private Button button2;
     private Button button15;
+    private Label objective;
     
     WeightedGroup<UpgradeOption> group = new WeightedGroup<UpgradeOption>(){
         {new UpgradeOption("Health", "Common"), 50}, 
         {new UpgradeOption("Speed", "Common"), 50}, 
         {new UpgradeOption("Damage", "Uncommon"), 25}, 
-        {new UpgradeOption("Additional Missile Chance", "Extraordinary"), 5}, 
+        {new UpgradeOption("Attack Speed", "Uncommon"), 25},
+        {new UpgradeOption("Additional Missile", "Extraordinary"), 500}, 
         {new UpgradeOption("Explosion Radius", "Rare"), 10}, 
         {new UpgradeOption("Boost Cooldown", "Rare"), 10}, 
 
@@ -49,6 +51,7 @@ public class UpgradeScreen : Control
         button1 = GetNode<Button>("OptionContainer/Option1");
         button2 = GetNode<Button>("OptionContainer/Option2");
         button15 = GetNode<Button>("OptionContainer/Option15");
+        objective = GetNode<Label>("../Objective");
         
         GenerateUpgrades();
     }
@@ -56,22 +59,27 @@ public class UpgradeScreen : Control
     public void _OnOption1Pressed()
     {
         ApplyUpgrade(option1);
+        ReturnToGame();
     }
 
     public void _OnOption2Pressed()
     {
         ApplyUpgrade(option2);
+        ReturnToGame();
     }
 
     public void _OnOption15Pressed()
     {
         ApplyUpgrade(option15);
+        ReturnToGame();
     }
 
     private void ReturnToGame()
     {
         player.UpdateAttributes();
         endlessMode.NextLevel();
+        objective.Visible = true;
+        gameState.upgradeMode = false; //TODO: fix this!" !!!#
         GetTree().Paused = false;
         QueueFree();
     }
@@ -111,7 +119,11 @@ public class UpgradeScreen : Control
                 gameState.UpgradeDamage();
             break;
 
-            case "Additional Missile Chance":
+            case "Attack Speed":
+                gameState.UpgradeAttackSpeed();
+            break;
+
+            case "Additional Missile":
                 gameState.UpgradeAdditionalMissileChance();
             break;
 
