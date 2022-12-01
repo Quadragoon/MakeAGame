@@ -28,14 +28,14 @@ public class UpgradeScreen : Control
     private Label objective;
     
     WeightedGroup<UpgradeOption> group = new WeightedGroup<UpgradeOption>(){
-        {new UpgradeOption("Health", "Common"), 75}, 
-        {new UpgradeOption("Speed", "Common"), 75}, 
+        {new UpgradeOption("Health", "Common"), 100}, 
+        {new UpgradeOption("Speed", "Common"), 100}, 
         {new UpgradeOption("Damage", "Epic"), 5}, 
         {new UpgradeOption("Attack Speed", "Epic"), 5},
-        {new UpgradeOption("Additional Missile", "Extraordinary"), 200}, 
+        {new UpgradeOption("Additional Missile", "Extraordinary"), 1}, 
         {new UpgradeOption("Explosion Radius", "Rare"), 10}, 
         {new UpgradeOption("Boost Cooldown", "Uncommon"), 25},
-        {new UpgradeOption("Large damage boost at a cost", "Cursed", true), 200},
+        {new UpgradeOption("Large damage boost at a cost", "Cursed", true), 1},
 
     };
     
