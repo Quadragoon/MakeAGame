@@ -8,7 +8,7 @@ public class Missile : Node2D
 
     [Export]
     public PackedScene ExplosionScene;
-    private GameState gameState;
+    protected GameState gameState;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
