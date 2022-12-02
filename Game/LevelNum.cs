@@ -3,9 +3,6 @@ using System;
 
 public class LevelNum : Label
 {
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text";
     private string levelNumber;
     private Game game;
 

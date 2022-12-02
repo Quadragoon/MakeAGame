@@ -3,9 +3,6 @@ using System;
 
 public class Objective : Label
 {
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text";
     private Game game;
     private string objective;
 

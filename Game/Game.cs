@@ -3,9 +3,6 @@ using System;
 
 public class Game : Node2D
 {
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text";
     WeightedGroup<string> group = new WeightedGroup<string>(){
         {"res://Enemy/Enemy1.tscn", 10}, //Value indicates weight, i.e. chance to spawn
         {"res://Enemy/Enemy2.tscn", 30}, 

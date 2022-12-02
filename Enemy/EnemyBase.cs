@@ -3,9 +3,6 @@ using System;
 
 public class EnemyBase : KinematicBody2D
 {
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text";
 
     //Can add more parameters to make every enemy more unique
     protected float speed;
@@ -17,10 +14,4 @@ public class EnemyBase : KinematicBody2D
     {
         
     }
-
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
 }

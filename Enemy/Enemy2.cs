@@ -3,10 +3,6 @@ using System;
 
 public class Enemy2 : EnemyBase
 {
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text";;
-
     private Vector2 direction = Vector2.Zero;
     
 

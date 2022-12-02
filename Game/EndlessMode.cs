@@ -3,10 +3,6 @@ using System;
 
 public class EndlessMode : Game
 {
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text";
-    
     private GameState gameState;
     private EndlessMode gameScene;
     private Label objective;

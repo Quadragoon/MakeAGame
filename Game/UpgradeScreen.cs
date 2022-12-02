@@ -106,39 +106,63 @@ public class UpgradeScreen : Control
 
     private void ApplyUpgrade(UpgradeOption option)
     {
-        switch(option.Name)
+        switch(option.Rarity)
         {
-            case "Health":
-                gameState.UpgradeHealth();
-            break;
+            case "Common":
+                switch(option.Name)
+                {
+                    case "Health":
+                        gameState.UpgradeHealth();
+                        break;
+                    case "Speed":
+                        gameState.UpgradeSpeed();
+                        break;
+                }
+                break;
+            case "Uncommon":
+                switch(option.Name)
+                {
+                    case "Boost Cooldown":
+                        gameState.UpgradeBoostCooldown();
+                        break;
+                }
+                break;
+            case "Rare":
+                switch(option.Name)
+                {
+                    case "Explosion Radius":
+                        gameState.UpgradeExplosionRadius();
+                        break;
+                }
+                break;
+            case "Epic":
+                switch(option.Name)
+                {
+                    case "Damage":
+                        gameState.UpgradeDamage();
+                        break;
+                    case "Attack Speed":
+                        gameState.UpgradeAttackSpeed();
+                        break;
+                }
+                break;
+            case "Extraordinary":
+                switch(option.Name)
+                {
+                    case "Additional Missile":
+                        gameState.UpgradeAdditionalMissile();
+                        break;
+                }
+                break;
+            case "Cursed":
+                switch(option.Name)
+                {
+                    case "Large damage boost at a cost":
+                        gameState.WildShots();
+                        break;
+                }
+                break;
 
-            case "Speed":
-                gameState.UpgradeSpeed();
-            break;
-
-            case "Damage":
-                gameState.UpgradeDamage();
-            break;
-
-            case "Attack Speed":
-                gameState.UpgradeAttackSpeed();
-            break;
-
-            case "Additional Missile":
-                gameState.UpgradeAdditionalMissileChance();
-            break;
-
-            case "Explosion Radius":
-                gameState.UpgradeExplosionRadius();
-            break;
-
-            case "Boost Cooldown":
-                gameState.UpgradeBoostCooldown();
-            break;
-
-            case "Large damage boost at a cost":
-                gameState.WildShots();
-            break;
         }
         //TODO: Apply upgrades to character
     }

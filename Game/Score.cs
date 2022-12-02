@@ -3,9 +3,6 @@ using System;
 
 public class Score : Godot.Label
 {
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text";
     private string score;
     private Game game;
 
