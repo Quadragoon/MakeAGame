@@ -52,6 +52,7 @@ public class Game : Node2D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        _Draw();
         GD.Randomize();
         
         for(int i = 0; i < GetChildCount(); i++)
@@ -69,5 +70,13 @@ public class Game : Node2D
     {
         
     }
+    //Draw a unicorn in ASCII art
+    public void _Draw()
+    {
+        GD.Print("  /\\_/\\");
+        GD.Print(" ( o.o )");
+        GD.Print("  > ^ <");
+    }
+
     
 }

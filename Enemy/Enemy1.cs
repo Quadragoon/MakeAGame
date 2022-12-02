@@ -4,12 +4,13 @@ using System;
 public class Enemy1 : EnemyBase
 {
     private Vector2 direction = Vector2.Zero;
+    private GameState gameState;
     
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        var gameState = GetNode<GameState>("../../../GameState");
+        gameState = GetNode<GameState>("../../../GameState");
         speed = 500 * (1.0f + (gameState.level-1.0f) * 0.05f); //Derived from EnemyBase
         health = 1 * (1.0f + (gameState.level-1.0f) * 0.05f);
         damage = 2 * (1.0f + (gameState.level-1.0f) * 0.05f);
@@ -33,6 +34,15 @@ public class Enemy1 : EnemyBase
 
     public override void _PhysicsProcess(float delta)
     {
+        //Change velocity based on distance to Player
+        if(GlobalPosition.DistanceTo(GetNode<Node2D>("../../Player").GlobalPosition) > 1800)
+        {
+            speed = 500 + GlobalPosition.DistanceTo(GetNode<Node2D>("../../Player").GlobalPosition * (1.0f + (gameState.level-1.0f) * 0.05f));
+        }
+        else
+        {
+            speed = 500 * (1.0f + (gameState.level-1.0f) * 0.05f);
+        }
         Vector2 velocity = direction * speed;
         velocity = MoveAndSlide(velocity);
         int slideCount = GetSlideCount();

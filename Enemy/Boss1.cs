@@ -37,6 +37,15 @@ public class Boss1 : EnemyBase
 
     public override void _PhysicsProcess(float delta)
     {
+        //Change velocity based on distance to Player
+        if(GlobalPosition.DistanceTo(GetNode<Node2D>("../../Player").GlobalPosition) > 1800)
+        {
+            speed = 350 + GlobalPosition.DistanceTo(GetNode<Node2D>("../../Player").GlobalPosition * (1.0f + (gameState.level-1.0f) * 0.05f));
+        }
+        else
+        {
+            speed = 350 * (1.0f + (gameState.level-1.0f) * 0.05f);
+        }
         Vector2 velocity = direction * speed;
         velocity = MoveAndSlide(velocity);
         int slideCount = GetSlideCount();

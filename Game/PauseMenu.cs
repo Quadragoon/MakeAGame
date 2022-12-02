@@ -17,10 +17,22 @@ public class PauseMenu : Control
     {
         if(Input.IsActionJustPressed("ui_cancel") == true && gameState.upgradeMode == false) //Pause game function, ui_cancel bound to esc
         {
-                GD.Print(GetTree().CurrentScene.Name);
+                //GD.Print(GetTree().CurrentScene.Name);
                 bool newPauseState = !GetTree().Paused; // the new Paused state will be the opposite of the current one
                 GetTree().Paused = newPauseState;
                 this.Visible = newPauseState; // visible if paused, not visible if not
+                //Display stats for health, speed, damage, etc.
+                GetNode<Label>("StatsContainer/Health").Text = "Health: " + gameState.maxHealth.ToString();
+                GetNode<Label>("StatsContainer/Speed").Text = "Speed: " + gameState.acceleration.ToString("0.##");
+                GetNode<Label>("StatsContainer/Damage").Text = "Damage: " + gameState.damage.ToString("0.##");
+                GetNode<Label>("StatsContainer/AdditionalMissiles").Text = "Missiles: " + (gameState.missileMultiplierChance/100 + 1).ToString();
+                GetNode<Label>("StatsContainer/AOE").Text = "Explosion Radius: " + gameState.explosionRadiusScale.ToString("0.##");
+                GetNode<Label>("StatsContainer/Fire Speed").Text = "Fire Rate: " + (1/gameState.fireDelay).ToString("0.##");
+                GetNode<Label>("StatsContainer/Boost Cooldown").Text = "Boost Cooldown: " + gameState.boostCooldown.ToString("0.##");
+                //print float displaying only 2 decimals
+                
+
+
         }
     }
 

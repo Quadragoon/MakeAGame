@@ -13,7 +13,7 @@ public class GameState : Node2D
     public float damage = 1;
     public float missileMultiplierChance = 0; //chance of new missile, 100 -> one guaranteed extra missile, 150 -> one extra and a chance for a third missile
     public float explosionRadiusScale = 1;
-    public int speedUpgradeAmount = 100;
+    public int speedUpgradeAmount = 250;
     public float fireDelay = 0.2f;
     public bool stormtrooper = false;
     public float boostCooldown = 3.0f;
