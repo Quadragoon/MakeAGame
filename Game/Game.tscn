@@ -99,7 +99,7 @@ size_flags_vertical = 3
 custom_constants/separation = 9
 
 [node name="Label" type="Label" parent="HUD/PauseMenu/CenterContainer/VBoxContainer"]
-margin_right = 106.0
+margin_right = 130.0
 margin_bottom = 14.0
 theme = ExtResource( 5 )
 text = "Game Paused"
@@ -107,15 +107,15 @@ align = 1
 
 [node name="ResumeButton" type="Button" parent="HUD/PauseMenu/CenterContainer/VBoxContainer"]
 margin_top = 23.0
-margin_right = 106.0
-margin_bottom = 43.0
+margin_right = 130.324
+margin_bottom = 61.251
 theme = ExtResource( 5 )
 text = "Resume Game"
 
 [node name="QuitButton" type="Button" parent="HUD/PauseMenu/CenterContainer/VBoxContainer"]
-margin_top = 52.0
-margin_right = 106.0
-margin_bottom = 72.0
+margin_top = 70.0
+margin_right = 130.0
+margin_bottom = 108.251
 theme = ExtResource( 5 )
 text = "Quit To Menu"
 

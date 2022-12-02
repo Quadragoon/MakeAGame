@@ -25,6 +25,7 @@ public class Player : Node2D
     private float currentBoostCooldown = 0.0f;
     private Vector2 boostDirection;
     private AudioStreamPlayer boostReadyAudioPlayer;
+    private AudioStreamPlayer superAttackReadyAudioPlayer;
     private Timer invisibilityTimer;
     private TextureProgress healthBar;
     private TextureProgress boostBar;
@@ -41,6 +42,7 @@ public class Player : Node2D
         movementVector = Vector2.Zero;
         engineAudioPlayer = GetNode<AudioStreamPlayer2D>("EngineAudioPlayer");
         boostReadyAudioPlayer = GetNode<AudioStreamPlayer>("BoostReadyAudioPlayer");
+        superAttackReadyAudioPlayer = GetNode<AudioStreamPlayer>("SuperAttackReadyAudioPlayer");
         invisibilityTimer = GetNode<Timer>("InvisibilityTimer");
         boostBar = GetNode<TextureProgress>("/root/EndlessMode/HUD/BarContainer/BoostBar");
         
@@ -186,7 +188,7 @@ public class Player : Node2D
             gameState.superAttackCooldown = (delta >= gameState.superAttackCooldown) ? 0 : gameState.superAttackCooldown-delta; // this is a way to make sure we don't count below 0
             //boostBar.Value = 1 - (currentBoostCooldown / BoostCooldown);
             if (gameState.superAttackCooldown == 0)
-                boostReadyAudioPlayer.Play();
+                superAttackReadyAudioPlayer.Play();
         }
     }
 
