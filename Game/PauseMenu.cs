@@ -45,5 +45,12 @@ public class PauseMenu : Control
         gameState.acceleration = 2500;
         gameState.boostPower = 5000;
         gameState.maxHealth = 5;
+        gameState.damage = 1;
+        gameState.missileMultiplierChance = 0;
+        gameState.explosionRadiusScale = 1;
+        gameState.speedUpgradeAmount = 100;
+        gameState.fireDelay = 0.2f;
+        gameState.stormtrooper = false;
+        gameState.boostCooldown = 3.0f;
     }
 }

@@ -13,7 +13,7 @@ public class Enemy1 : EnemyBase
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        var gameState = GetNode<GameState>("../../GameState");
+        var gameState = GetNode<GameState>("../../../GameState");
         speed = 500 * (1.0f + (gameState.level-1.0f) * 0.05f); //Derived from EnemyBase
         health = 1 * (1.0f + (gameState.level-1.0f) * 0.05f);
         damage = 2 * (1.0f + (gameState.level-1.0f) * 0.05f);
@@ -22,7 +22,7 @@ public class Enemy1 : EnemyBase
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
-        Game game = GetNode<Game>("../.");
+        Game game = GetNode<Game>("../../.");
         if(health <=0)
         {
             //Todo: Add on death animation
@@ -30,7 +30,7 @@ public class Enemy1 : EnemyBase
             game.kills++;
             QueueFree();
         }
-        Node2D player = GetNode<Node2D>("../Player");
+        Node2D player = GetNode<Node2D>("../../Player");
         direction = GlobalPosition.DirectionTo(player.GlobalPosition);
         LookAt(player.GlobalPosition);
     }

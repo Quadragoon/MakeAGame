@@ -44,7 +44,12 @@ public class Game : Node2D
         mobScene = ResourceLoader.Load(mobPath) as PackedScene;
         KinematicBody2D mob = mobScene.Instance() as KinematicBody2D;
         mob.Position = player.GlobalPosition + mobSpawnOffset;
-        AddChild(mob);
+        //If more than 200 mobs are on screen, don't spawn more
+        if(GetNode<Node2D>("Mobs").GetChildCount() < 200)
+        {
+            GetNode<Node2D>("Mobs").AddChild(mob);
+        }
+        //AddChild(mob);
     }
 
     // Called when the node enters the scene tree for the first time.

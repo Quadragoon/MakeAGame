@@ -15,8 +15,8 @@ public class Boss1 : EnemyBase
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        gameState = GetNode<GameState>("../../GameState");
-        endlessMode = GetNode<EndlessMode>("/root/Game");
+        gameState = GetNode<GameState>("../../../GameState");
+        endlessMode = GetNode<EndlessMode>("/root/EndlessMode");
         speed = 350 * (1.0f + (gameState.level-1.0f) * 0.04f); //Derived from EnemyBase
         health = 30 * (1.0f + (gameState.level-1.0f) * 2.0f);
         damage = 3 * (1.0f + (gameState.level-1.0f) * 0.5f);
@@ -25,16 +25,16 @@ public class Boss1 : EnemyBase
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
-        Game game = GetNode<Game>("../.");
+        //Game game = GetNode<Game>("../.");
         if(health <=0)
         {
             //Todo: Add on death animation, ADD BOSS UNIQUE ATTACKS
-            game.score+=500;
-            game.kills++;
+            //game.score+=500;
+            //game.kills++;
             endlessMode.DeadBoss();
             QueueFree();
         }
-        Node2D player = GetNode<Node2D>("../Player");
+        Node2D player = GetNode<Node2D>("../../Player");
         direction = GlobalPosition.DirectionTo(player.GlobalPosition);
         LookAt(player.GlobalPosition);
     }
@@ -57,5 +57,10 @@ public class Boss1 : EnemyBase
             }
 
         }
+    }
+
+    public void BossAttack()
+    {
+        
     }
 }

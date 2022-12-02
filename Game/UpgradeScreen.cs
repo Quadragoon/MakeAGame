@@ -46,9 +46,9 @@ public class UpgradeScreen : Control
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        player = GetNode<Player>("/root/Game/Player");
+        player = GetNode<Player>("/root/EndlessMode/Player");
         gameState = GetNode<GameState>("/root/GameState");
-        endlessMode = GetNode<EndlessMode>("/root/Game");
+        endlessMode = GetNode<EndlessMode>("/root/EndlessMode");
         button1 = GetNode<Button>("OptionContainer/Option1");
         button2 = GetNode<Button>("OptionContainer/Option2");
         button15 = GetNode<Button>("OptionContainer/Option15");

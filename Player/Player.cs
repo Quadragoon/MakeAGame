@@ -36,13 +36,13 @@ public class Player : Node2D
     public override void _Ready()
     {
         gameState = GetNode<GameState>("/root/GameState");
-        healthBar = GetNode<TextureProgress>("/root/Game/HUD/BarContainer/HealthBar");
+        healthBar = GetNode<TextureProgress>("/root/EndlessMode/HUD/BarContainer/HealthBar");
         ScreenSize = GetViewportRect().Size;
         movementVector = Vector2.Zero;
         engineAudioPlayer = GetNode<AudioStreamPlayer2D>("EngineAudioPlayer");
         boostReadyAudioPlayer = GetNode<AudioStreamPlayer>("BoostReadyAudioPlayer");
         invisibilityTimer = GetNode<Timer>("InvisibilityTimer");
-        boostBar = GetNode<TextureProgress>("/root/Game/HUD/BarContainer/BoostBar");
+        boostBar = GetNode<TextureProgress>("/root/EndlessMode/HUD/BarContainer/BoostBar");
         
         UpdateAttributes();
     }
@@ -58,7 +58,7 @@ public class Player : Node2D
         maxSpeed = (int)(Acceleration * 0.125f);
         BoostCooldown = gameState.boostCooldown;
         
-        Control barSpacing = GetNode<Control>("/root/Game/HUD/BarContainer/BarSpacing");
+        Control barSpacing = GetNode<Control>("/root/EndlessMode/HUD/BarContainer/BarSpacing");
         healthBar.SizeFlagsStretchRatio = Mathf.Clamp(0.2f * gameState.maxHealth, 1, 6);
         barSpacing.SizeFlagsStretchRatio = Mathf.Clamp(6 - (0.2f * gameState.maxHealth), 0, 5);
     }
@@ -157,8 +157,12 @@ public class Player : Node2D
         }
 
         if (Input.IsActionJustPressed("fire_secondary"))
-        {
-            SuperAttack();
+        {   
+            if(gameState.superAttackCooldown <= 0f)
+            {
+                gameState.superAttackCooldown = gameState.superAttackCooldownMax;
+                SuperAttack();
+            }
         }
 
         if (currentBoostCooldown > 0)
@@ -174,6 +178,15 @@ public class Player : Node2D
             currentBoostCooldown = BoostCooldown;
             currentBoostTimer = BoostTime;
             boostDirection = movementInput.Normalized();
+        }
+
+        //TODO: add unique bar and cooldown sound to superattack
+        if (gameState.superAttackCooldown > 0)
+        {
+            gameState.superAttackCooldown = (delta >= gameState.superAttackCooldown) ? 0 : gameState.superAttackCooldown-delta; // this is a way to make sure we don't count below 0
+            //boostBar.Value = 1 - (currentBoostCooldown / BoostCooldown);
+            if (gameState.superAttackCooldown == 0)
+                boostReadyAudioPlayer.Play();
         }
     }
 

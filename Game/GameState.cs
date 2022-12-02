@@ -20,6 +20,8 @@ public class GameState : Node2D
     public float fireDelay = 0.2f;
     public bool stormtrooper = false;
     public float boostCooldown = 3.0f;
+    public float superAttackCooldown = 0.0f;
+    public float superAttackCooldownMax = 10.0f;
 
 
     //PROBABLY UNNECESSARY BOOLS

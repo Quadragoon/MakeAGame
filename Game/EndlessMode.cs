@@ -8,14 +8,14 @@ public class EndlessMode : Game
     // private string b = "text";
     
     private GameState gameState;
-    private Game gameScene;
+    private EndlessMode gameScene;
     private Label objective;
     private Timer mobTimer;
     
     private const int BASE_TIMER = 10;
     private const int BASE_KILLS = 5;
     private const int TIME_PER_LEVEL = 1;
-    private const int KILLS_PER_LEVEL = 5;
+    private const int KILLS_PER_LEVEL = 1;
     
 
     WeightedGroup<string> group = new WeightedGroup<string>(){
@@ -31,8 +31,8 @@ public class EndlessMode : Game
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        gameState = GetNode<GameState>("../GameState");
-        gameScene = GetNode<Game>("../Game");
+        gameState = GetNode<GameState>("/root/GameState");
+        gameScene = GetNode<EndlessMode>("/root/EndlessMode");
         objective = GetNode<Label>("HUD/Objective");
         mobTimer = GetNode<Timer>("MobTimer");
 
@@ -88,18 +88,14 @@ public class EndlessMode : Game
         level++;
         kills = 0;
         if(level % 5 == 0) //Every 5th level spawn a boss. TODO: Add superbosses every 10th level?
-        {
-            //TODO: Remove normal enemies spawning during boss battles
-
+        { 
             mobTimer.Paused = true; //Pauses enemy spawning during bossfight
             objectiveType = "Boss";
-            float mobSpawnAngle = (GD.Randf() * Mathf.Pi*2); //Random float between 0 and 2pi
-            Vector2 mobSpawnOffset = Mathf.Polar2Cartesian(1000, mobSpawnAngle);
-            string mobPath = bosses.GetItem();
-            mobScene = ResourceLoader.Load(mobPath) as PackedScene;
-            KinematicBody2D mob = mobScene.Instance() as KinematicBody2D;
-            mob.Position = player.GlobalPosition + mobSpawnOffset;
-            AddChild(mob);
+            //Spawn one additional boss every 5th level
+            for(int i = 0; i < (level/5); i++)
+            {
+                SpawnBoss();
+            }
         }
         else 
         {
@@ -114,9 +110,24 @@ public class EndlessMode : Game
             
     }
 
-    public void DeadBoss()
+    public void SpawnBoss()
     {
-        mobTimer.Paused = false;
-        OfferUpgrade(); //TODO: Offer unique rewards
+        float mobSpawnAngle = (GD.Randf() * Mathf.Pi*2); //Random float between 0 and 2pi
+        Vector2 mobSpawnOffset = Mathf.Polar2Cartesian(1000, mobSpawnAngle);
+        string mobPath = bosses.GetItem();
+        mobScene = ResourceLoader.Load(mobPath) as PackedScene;
+        KinematicBody2D mob = mobScene.Instance() as KinematicBody2D;
+        mob.Position = player.GlobalPosition + mobSpawnOffset;
+        GetNode("/root/EndlessMode").GetNode("Bosses").AddChild(mob);
+    }
+
+    public void DeadBoss()
+    { 
+        //If there are no more bosses left, resume enemy spawning and offer upgrades
+        if(GetNode("/root/EndlessMode").GetNode("Bosses").GetChildCount() == 1)
+        {
+            mobTimer.Paused = false;
+            OfferUpgrade();
+        }
     }
 }

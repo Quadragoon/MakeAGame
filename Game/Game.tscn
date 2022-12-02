@@ -147,6 +147,8 @@ region_rect = Rect2( 0, 0, 1024, 1024 )
 wait_time = 0.5
 autostart = true
 
+[node name="Mobs" type="Node2D" parent="."]
+
 [connection signal="pressed" from="HUD/PauseMenu/CenterContainer/VBoxContainer/ResumeButton" to="HUD/PauseMenu" method="_OnResumeButtonPressed"]
 [connection signal="pressed" from="HUD/PauseMenu/CenterContainer/VBoxContainer/QuitButton" to="HUD/PauseMenu" method="_OnQuitButtonPressed"]
 [connection signal="timeout" from="MobTimer" to="." method="_OnMobTimerTimeout"]
