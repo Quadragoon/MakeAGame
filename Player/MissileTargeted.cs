@@ -4,7 +4,6 @@ using System;
 public class MissileTargeted : Missile
 {
     private float timer = 0.0f;
-    public float fireDelay;
     public float freeFloatTime = .75f;
     public Vector2 TargetLocation;
     private Sprite missileSprite;
@@ -13,22 +12,14 @@ public class MissileTargeted : Missile
     private float turnSpeed = 4f;
     private float acceleration = 400f;
     public Node2D firedFrom;
-    private uint collisionLayer;
-    private uint collisionMask;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        Visible = false;
         Speed = 400;
         missileSprite = GetNode<Sprite>("Sprite");
         defaultSpriteRotation = missileSprite.Rotation;
         freeFloatRotationSpeed = (GD.Randf() - 0.5f) * 50;
-        Area2D area2D = GetNode<Area2D>("Area2D");
-        collisionLayer = area2D.CollisionLayer;
-        area2D.CollisionLayer = 0;
-        collisionMask = area2D.CollisionMask;
-        area2D.CollisionMask = 0;
 
         base._Ready();
     }
@@ -36,20 +27,7 @@ public class MissileTargeted : Missile
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
-        if (fireDelay > 0)
-        {
-            fireDelay -= Mathf.Min(delta, fireDelay);
-            freeFloatTime -= Mathf.Min(delta, freeFloatTime);
-            if (fireDelay <= 0)
-            {
-                Visible = true;
-                GlobalPosition = firedFrom.GlobalPosition;
-                Area2D area2D = GetNode<Area2D>("Area2D");
-                area2D.CollisionLayer = collisionLayer;
-                area2D.CollisionMask = collisionMask;
-            }
-        }
-        else if (freeFloatTime > 0)
+        if (freeFloatTime > 0)
         {
             Speed -= Mathf.Sqrt(Speed) * delta * 25;
             freeFloatTime -= Mathf.Min(delta, freeFloatTime);

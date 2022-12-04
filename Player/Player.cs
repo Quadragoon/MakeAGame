@@ -215,21 +215,12 @@ public class Player : Node2D
 
     private void SuperAttack()
     {
-        Vector2 targetedLocation = GetGlobalMousePosition();
+        Vector2 targetLocation = GetGlobalMousePosition();
         PackedScene targetedMissileScene = GD.Load<PackedScene>("res://Player/MissileTargeted.tscn");
-        for (int i = 0; i < 100; i++)
-        {
-            float targetAreaRadius = 50.0f;
-            MissileTargeted newMissile = targetedMissileScene.Instance<MissileTargeted>();
-            newMissile.GlobalPosition = GlobalPosition;
-            newMissile.Rotation = Rotation;
-            newMissile.Rotate(Mathf.Pi);
-            newMissile.Rotate(GD.Randf() - 0.5f);
-            newMissile.TargetLocation = targetedLocation + Mathf.Polar2Cartesian((float)GD.RandRange(5, targetAreaRadius), (float)GD.RandRange(0, Mathf.Tau));
-            newMissile.fireDelay = 0.02f * (i + 1);
-            newMissile.firedFrom = this;
-            GetParent().AddChild(newMissile);
-        }
+        PackedScene launcherScene = GD.Load<PackedScene>("res://Player/Launcher.tscn");
+        Launcher launcher = launcherScene.Instance<Launcher>();
+        launcher.Init(targetedMissileScene, 0.01f, targetLocation, 30, launchAngleOffset: Mathf.Pi);
+        AddChild(launcher);
     }
 
     public void ClearGameState()
