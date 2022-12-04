@@ -19,6 +19,9 @@ public class GameState : Node2D
     public float boostCooldown = 3.0f;
     public float superAttackCooldown = 0.0f;
     public float superAttackCooldownMax = 10.0f;
+    public int killTarget = 10;
+    public float mobTimer = 0.5f;
+    public Vector2 positionOfLastEnemyKilled;
 
 
     //PROBABLY UNNECESSARY BOOLS
@@ -71,6 +74,27 @@ public class GameState : Node2D
     {
         damage *= 2;
         stormtrooper = true;
+    }
+
+    public void ClearGameState()
+    {
+        level = 1;
+        score = 0;
+        acceleration = 2500;
+        boostPower = 5000;
+        maxHealth = 5;
+        damage = 1;
+        missileMultiplierChance = 0;
+        explosionRadiusScale = 1;
+        speedUpgradeAmount = 250;
+        fireDelay = 0.2f;
+        stormtrooper = false;
+        boostCooldown = 3.0f;
+        superAttackCooldown = 0.0f;
+        superAttackCooldownMax = 10.0f;
+        killTarget = 10;
+        mobTimer = 0.5f;
+        positionOfLastEnemyKilled = new Vector2(0,0);
     }
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -35,7 +35,7 @@ public class Launcher : Node2D
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
-        GD.Print(Rotation);
+        //GD.Print(Rotation);
         _timeUntilNextLaunch -= delta;
         while (_timeUntilNextLaunch <= 0 && _launchedCount < _numberToLaunch)
         {

@@ -203,7 +203,6 @@ script = ExtResource( 3 )
 motion_mirroring = Vector2( 1024, 1024 )
 
 [node name="Background" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2( 0, -1 )
 texture = ExtResource( 2 )
 centered = false
 region_enabled = true
@@ -211,7 +210,7 @@ region_rect = Rect2( 0, 0, 1024, 1024 )
 
 [node name="MobTimer" type="Timer" parent="."]
 wait_time = 0.5
-autostart = true
+one_shot = true
 
 [node name="Mobs" type="Node2D" parent="."]
 

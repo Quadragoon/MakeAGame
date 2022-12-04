@@ -11,9 +11,10 @@ public class EndlessMode : Game
     private const int BASE_TIMER = 10;
     private const int BASE_KILLS = 5;
     private const int TIME_PER_LEVEL = 1;
-    private const int KILLS_PER_LEVEL = 1;
+    private const int KILLS_PER_LEVEL = 5;
+    private bool offerUpgradeSwitch = true;
+    private bool bossSwitch = false;
     
-
     WeightedGroup<string> group = new WeightedGroup<string>(){
         {"Survival", 0}, //Value indicates weight, i.e. chance to happen
         {"Slay", 50}, 
@@ -57,35 +58,43 @@ public class EndlessMode : Game
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
-        if(((kills >= (BASE_KILLS + (level*KILLS_PER_LEVEL))) && objectiveType == "Slay") && level % 5 != 0) 
+        if((kills >= (gameState.killTarget) && objectiveType == "Slay") && (level % 5 != 0) && offerUpgradeSwitch) 
         {
-            //TODO: Add end of level animation -> maybe animate scene transition
+            offerUpgradeSwitch = false; //Toggle to prevent multiple offers
+            level++;
+            gameState.killTarget += (level*KILLS_PER_LEVEL);
             OfferUpgrade();
+        }
+        time = timer(delta,  time);
+        if  (time > gameState.mobTimer && mobCounter < gameState.killTarget && offerUpgradeSwitch && !bossSwitch)
+        {
+            time = 0;
+            mobCounter++;
+            GD.Print(mobCounter);
+            SpawnMobs();
         }
     }
 
     public void OfferUpgrade()
     {
-        //gameState.score = gameScene.score;
-        // GetTree().ChangeScene("res://Game/UpgradeScreen.tscn");
-        mobTimer.WaitTime /= 1.05f;
-        Control upgradeScreen = GD.Load<PackedScene>("res://Game/UpgradeScreen.tscn").Instance() as Control;
-        upgradeScreen.ShowOnTop = true;
-        CanvasLayer hud = gameScene.GetNode<CanvasLayer>("HUD");
-        objective.Visible = false;
-        upgradeScreen.PauseMode = PauseModeEnum.Process;
-        gameState.upgradeMode = true; //Makes sure you can't pause in the upgradescreen //TODO: make this better
-        hud.AddChild(upgradeScreen);
-        GetTree().Paused = true;
+        //Pause mob timer when upgrade is offered
+        mobTimer.Paused = true;
+        //Spawn upgrade capsule
+        PackedScene capsuleScene = ResourceLoader.Load("res://Items/UpgradeCapsule.tscn") as PackedScene;
+        UpgradeCapsule upgradeCapsule = (UpgradeCapsule)capsuleScene.Instance();
+        upgradeCapsule.GlobalPosition = gameState.positionOfLastEnemyKilled;
+        GetNode("/root/EndlessMode").AddChild(upgradeCapsule);
     }
 
     public void NextLevel()
     {
-        level++;
-        kills = 0;
+        //mobTimer.Paused = false;
+        //mobTimer.WaitTime /= 1.05f; //Faster enemy spawn rate
+        offerUpgradeSwitch = true; //Reset offerUpgradeSwitch
         if(level % 5 == 0) //Every 5th level spawn a boss. TODO: Add superbosses every 10th level?
         { 
-            mobTimer.Paused = true; //Pauses enemy spawning during bossfight
+            //mobTimer.Paused = true; //Pauses enemy spawning during bossfight
+            bossSwitch = true;
             objectiveType = "Boss";
             //Spawn one additional boss every 5th level
             for(int i = 0; i < (level/5); i++)
@@ -96,14 +105,7 @@ public class EndlessMode : Game
         else 
         {
             objectiveType = group.GetItem();
-            if(objectiveType == "Survival")
-                {
-                    GetNode<Timer>("SurvivalTimer").WaitTime = BASE_TIMER + (level*TIME_PER_LEVEL);
-                    GetNode<Timer>("SurvivalTimer").Start();
-                }
         }
-        
-            
     }
 
     public void SpawnBoss()
@@ -122,7 +124,9 @@ public class EndlessMode : Game
         //If there are no more bosses left, resume enemy spawning and offer upgrades
         if(GetNode("/root/EndlessMode").GetNode("Bosses").GetChildCount() == 1)
         {
-            mobTimer.Paused = false;
+            offerUpgradeSwitch = false;
+            level++;
+            bossSwitch = false;
             OfferUpgrade();
         }
     }

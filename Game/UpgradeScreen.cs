@@ -36,7 +36,6 @@ public class UpgradeScreen : Control
         {new UpgradeOption("Explosion Radius", "Rare"), 10}, 
         {new UpgradeOption("Boost Cooldown", "Uncommon"), 25},
         {new UpgradeOption("Large damage boost at a cost", "Cursed", true), 1},
-
     };
     
     //TODO: Add random upgrades
@@ -164,7 +163,6 @@ public class UpgradeScreen : Control
                 break;
 
         }
-        //TODO: Apply upgrades to character
     }
 
     

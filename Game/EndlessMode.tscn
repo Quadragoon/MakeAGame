@@ -47,9 +47,6 @@ rect_scale = Vector2( 2, 2 )
 theme = ExtResource( 5 )
 script = ExtResource( 4 )
 
-[node name="Background" parent="ParallaxBackground/ParallaxLayer" index="0"]
-position = Vector2( 0, 0 )
-
 [node name="SurvivalTimer" type="Timer" parent="." index="4"]
 one_shot = true
 

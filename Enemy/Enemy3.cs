@@ -25,6 +25,7 @@ public class Enemy3 : EnemyBase
             //Todo: Add on death animation
             game.score+=100;
             game.kills++; //TODO: CHANGE THIS
+            gameState.positionOfLastEnemyKilled = GlobalPosition;
             QueueFree();
         }
         Node2D player = GetNode<Node2D>("../../Player");

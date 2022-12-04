@@ -26,7 +26,7 @@ public class Boss1 : EnemyBase
         {
             //Todo: Add on death animation, ADD BOSS UNIQUE ATTACKS
             game.score+=10000;
-            //game.kills++;
+            gameState.positionOfLastEnemyKilled = GlobalPosition;
             endlessMode.DeadBoss();
             QueueFree();
         }

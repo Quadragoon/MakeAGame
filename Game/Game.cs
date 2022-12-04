@@ -16,11 +16,20 @@ public class Game : Node2D
 
     [Export]  
     public PackedScene mobScene;
+    public GameState gameState;
+    public Timer mobTimer;
 
     protected Node2D player;
+    protected int mobCounter = 0;
 
     //private Random rnd = new Random();
     
+    protected float time = 0;
+
+    protected float timer(float delta, float a)
+    {
+        return a += 1 * delta;
+    }
 
     public void _NewGame()
     {
@@ -32,27 +41,36 @@ public class Game : Node2D
         GetNode<Timer>("MobTimer").Stop();
     }
 
-    public void _OnMobTimerTimeout()
-    {
-        float mobSpawnAngle = (GD.Randf() * Mathf.Pi*2); //Random float between 0 and 2pi
-        Vector2 mobSpawnOffset = Mathf.Polar2Cartesian(1000, mobSpawnAngle);
+    // public void _OnMobTimerTimeout()
+    // {
+    //         float mobSpawnAngle = (GD.Randf() * Mathf.Pi*2); //Random float between 0 and 2pi
+    //         Vector2 mobSpawnOffset = Mathf.Polar2Cartesian(1000, mobSpawnAngle);
 
-        string mobPath = group.GetItem();
-        mobScene = ResourceLoader.Load(mobPath) as PackedScene;
-        KinematicBody2D mob = mobScene.Instance() as KinematicBody2D;
-        mob.Position = player.GlobalPosition + mobSpawnOffset;
-        //If more than 200 mobs are on screen, don't spawn more
-        if(GetNode<Node2D>("Mobs").GetChildCount() < 200)
-        {
+    //         string mobPath = group.GetItem();
+    //         mobScene = ResourceLoader.Load(mobPath) as PackedScene;
+    //         KinematicBody2D mob = mobScene.Instance() as KinematicBody2D;
+    //         mob.Position = player.GlobalPosition + mobSpawnOffset;
+    //         GetNode<Node2D>("Mobs").AddChild(mob);
+    //         GD.Print("Mob spawned");
+    // }
+    public void SpawnMobs()
+    {
+            float mobSpawnAngle = (GD.Randf() * Mathf.Pi*2); //Random float between 0 and 2pi
+            Vector2 mobSpawnOffset = Mathf.Polar2Cartesian(1000, mobSpawnAngle);
+
+            string mobPath = group.GetItem();
+            mobScene = ResourceLoader.Load(mobPath) as PackedScene;
+            KinematicBody2D mob = mobScene.Instance() as KinematicBody2D;
+            mob.Position = player.GlobalPosition + mobSpawnOffset;
             GetNode<Node2D>("Mobs").AddChild(mob);
-        }
-        //AddChild(mob);
     }
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        _Draw();
+        gameState = GetNode<GameState>("/root/GameState");
+        mobTimer = GetNode<Timer>("MobTimer");
+        
         GD.Randomize();
         
         for(int i = 0; i < GetChildCount(); i++)
@@ -69,14 +87,5 @@ public class Game : Node2D
     public override void _Process(float delta)
     {
         
-    }
-    //Draw a unicorn in ASCII art
-    public void _Draw()
-    {
-        GD.Print("  /\\_/\\");
-        GD.Print(" ( o.o )");
-        GD.Print("  > ^ <");
-    }
-
-    
+    }   
 }
