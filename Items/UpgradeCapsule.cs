@@ -6,21 +6,32 @@ public class UpgradeCapsule : Area2D
     // Declare member variables here. Examples:
     // private int a = 2;
     // private string b = "text";
-    private Label upgradeLabel;
+    // WeightedGroup<UpgradeOption> group = new WeightedGroup<UpgradeOption>(){
+    //     {new UpgradeOption("Health", "Common"), 100}, 
+    //     {new UpgradeOption("Speed", "Common"), 100}, 
+    //     {new UpgradeOption("Damage", "Epic"), 20}, 
+    //     {new UpgradeOption("Attack Speed", "Epic"), 20},
+    //     {new UpgradeOption("Additional Missile", "Extraordinary"), 10}, 
+    //     {new UpgradeOption("Explosion Radius", "Rare"), 50}, 
+    //     {new UpgradeOption("Boost Cooldown", "Uncommon"), 75},
+    //     {new UpgradeOption("Large damage boost at a cost", "Cursed", true), 1},
+    // };
     WeightedGroup<UpgradeOption> group = new WeightedGroup<UpgradeOption>(){
         {new UpgradeOption("Health", "Common"), 100}, 
         {new UpgradeOption("Speed", "Common"), 100}, 
-        {new UpgradeOption("Damage", "Epic"), 20}, 
-        {new UpgradeOption("Attack Speed", "Epic"), 20},
-        {new UpgradeOption("Additional Missile", "Extraordinary"), 10}, 
-        {new UpgradeOption("Explosion Radius", "Rare"), 50}, 
-        {new UpgradeOption("Boost Cooldown", "Uncommon"), 75},
-        {new UpgradeOption("Large damage boost at a cost", "Cursed", true), 1},
+        {new UpgradeOption("Damage", "Epic"), 100}, 
+        {new UpgradeOption("Attack Speed", "Epic"), 100},
+        {new UpgradeOption("Additional Missile", "Extraordinary"), 100}, 
+        {new UpgradeOption("Explosion Radius", "Rare"), 100}, 
+        {new UpgradeOption("Boost Cooldown", "Uncommon"), 100},
+        {new UpgradeOption("Large damage boost at a cost", "Cursed", true), 100},
     };
     
     private GameState gameState;
     private Player player;
     private EndlessMode endlessMode;
+    private AnimationPlayer animationPlayer;
+    private Label upgradeLabel;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -28,6 +39,8 @@ public class UpgradeCapsule : Area2D
         gameState = GetNode<GameState>("/root/GameState");
         player = GetNode<Player>("/root/EndlessMode/Player");
         endlessMode = GetNode<EndlessMode>("/root/EndlessMode");
+        animationPlayer = GetNode<AnimationPlayer>("/root/EndlessMode/HUD/UpgradeAnimation");
+        upgradeLabel = GetNode<Label>("/root/EndlessMode/HUD/UpgradeContainer/UpgradeText");
     }
 
     public void _OnUpgradeCapsuleBodyEntered(Node body)
@@ -46,6 +59,32 @@ public class UpgradeCapsule : Area2D
     private void ApplyUpgrade(UpgradeOption option)
     {   
         //TODO: Add upgrade animation
+        //TODO: A label that shows the upgrade, theme depending on rarity
+        upgradeLabel.Text = option.Name;
+        switch(option.Rarity)
+        {
+            case "Uncommon":
+                upgradeLabel.AddColorOverride("font_color", new Color(26f, 255f, 0f)); //Green
+                break;
+            case "Rare":
+                upgradeLabel.AddColorOverride("font_color", new Color(0f, 88f, 255f)); //Blue
+                break;
+            case "Epic":
+                upgradeLabel.AddColorOverride("font_color", new Color(151f, 0f, 255f)); //Purple
+                break;
+            case "Extraordinary":
+                upgradeLabel.AddColorOverride("font_color", new Color(255f, 96f, 0f)); //Orange
+                break;
+            case "Cursed":
+                upgradeLabel.AddColorOverride("font_color", new Color(150f, 0f, 0f)); //Red
+                break;
+            default:
+                upgradeLabel.AddColorOverride("font_color", new Color(255f, 255f, 255f)); //White
+                break;
+        }
+        //upgradeLabel.Theme = ResourceLoader.Load("res://Assets/FlatUI/" + option.Rarity + ".tres") as Theme;
+        animationPlayer.Play("UpgradeAnim");
+
         switch(option.Rarity)
         {
             case "Common":

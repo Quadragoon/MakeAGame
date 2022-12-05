@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/spaceshooter/Backgrounds/purple.png" type="Texture" id=2]
@@ -12,6 +12,60 @@
 [ext_resource path="res://Game/PauseMenu.cs" type="Script" id=10]
 [ext_resource path="res://Game/Score.cs" type="Script" id=11]
 [ext_resource path="res://Assets/FlatUI/Common.tres" type="Theme" id=12]
+
+[sub_resource type="Animation" id=1]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("UpgradeContainer:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 300, 440 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("UpgradeContainer/UpgradeText:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "UpgradeAnim"
+tracks/0/type = "value"
+tracks/0/path = NodePath("UpgradeContainer:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 300, 440 ), Vector2( 300, 408 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("UpgradeContainer/UpgradeText:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 4 )
@@ -195,6 +249,27 @@ margin_bottom = 72.0
 rect_scale = Vector2( 2, 2 )
 theme = ExtResource( 5 )
 script = ExtResource( 11 )
+
+[node name="UpgradeContainer" type="VBoxContainer" parent="HUD"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 300.0
+margin_top = 440.0
+margin_right = 600.0
+margin_bottom = 480.0
+
+[node name="UpgradeText" type="Label" parent="HUD/UpgradeContainer"]
+margin_right = 300.0
+margin_bottom = 14.0
+theme = ExtResource( 12 )
+text = "TEST UPGRADE"
+align = 1
+
+[node name="UpgradeAnimation" type="AnimationPlayer" parent="HUD"]
+anims/RESET = SubResource( 1 )
+anims/UpgradeAnim = SubResource( 2 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 script = ExtResource( 3 )
