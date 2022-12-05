@@ -90,6 +90,7 @@ public class EndlessMode : Game
     {
         //mobTimer.Paused = false;
         //mobTimer.WaitTime /= 1.05f; //Faster enemy spawn rate
+        gameState.mobTimer /= 1.05f;
         offerUpgradeSwitch = true; //Reset offerUpgradeSwitch
         if(level % 5 == 0) //Every 5th level spawn a boss. TODO: Add superbosses every 10th level?
         { 
