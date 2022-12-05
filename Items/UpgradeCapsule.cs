@@ -64,22 +64,28 @@ public class UpgradeCapsule : Area2D
         switch(option.Rarity)
         {
             case "Uncommon":
-                upgradeLabel.AddColorOverride("font_color", new Color(26f, 255f, 0f)); //Green
+                upgradeLabel.SelfModulate = new Color(.102f, 1f, 0f);
+                // upgradeLabel.AddColorOverride("font_color", new Color(26f, 255f, 0f)); //Green
                 break;
             case "Rare":
-                upgradeLabel.AddColorOverride("font_color", new Color(0f, 88f, 255f)); //Blue
+                upgradeLabel.SelfModulate = new Color(0f, .345f, 1f);
+                // upgradeLabel.AddColorOverride("font_color", new Color(0f, 88f, 255f)); //Blue
                 break;
             case "Epic":
-                upgradeLabel.AddColorOverride("font_color", new Color(151f, 0f, 255f)); //Purple
+                upgradeLabel.SelfModulate = new Color(.592f, 0f, 1f);
+                // upgradeLabel.AddColorOverride("font_color", new Color(151f, 0f, 255f)); //Purple
                 break;
             case "Extraordinary":
-                upgradeLabel.AddColorOverride("font_color", new Color(255f, 96f, 0f)); //Orange
+                upgradeLabel.SelfModulate = new Color(1f, 0.38f, 0f);
+                // upgradeLabel.AddColorOverride("font_color", new Color(255f, 96f, 0f)); //Orange
                 break;
             case "Cursed":
-                upgradeLabel.AddColorOverride("font_color", new Color(150f, 0f, 0f)); //Red
+                upgradeLabel.SelfModulate = new Color(.592f, 0f, 0f);
+                // upgradeLabel.AddColorOverride("font_color", new Color(150f, 0f, 0f)); //Red
                 break;
             default:
-                upgradeLabel.AddColorOverride("font_color", new Color(255f, 255f, 255f)); //White
+                upgradeLabel.SelfModulate = Colors.White;
+                // upgradeLabel.AddColorOverride("font_color", new Color(255f, 255f, 255f)); //White
                 break;
         }
         //upgradeLabel.Theme = ResourceLoader.Load("res://Assets/FlatUI/" + option.Rarity + ".tres") as Theme;
