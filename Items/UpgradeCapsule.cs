@@ -31,7 +31,7 @@ public class UpgradeCapsule : Area2D
 
     public void _OnUpgradeCapsuleBodyEntered(Node body)
     {
-        ApplyUpgrade(group.GetItem());
+        ApplyUpgrade(group.GetItem()); //TODO: Add pickup animation
         ReturnToGame();
     }
 

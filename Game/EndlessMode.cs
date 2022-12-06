@@ -106,7 +106,8 @@ public class EndlessMode : Game
         //mobTimer.WaitTime /= 1.05f; //Faster enemy spawn rate
         if(GetNode("/root/EndlessMode").GetNode("Items").GetChildCount() > 0)
         {
-            DeleteChildren(GetNode("/root/EndlessMode").GetNode("Items")); //Remove all items
+            DeleteChildren(GetNode("/root/EndlessMode").GetNode("Items")); //Remove all items'
+            //TODO: Add despawn animation for all items
         }
         gameState.mobTimer /= 1.05f;
         offerUpgradeSwitch = true; //Reset offerUpgradeSwitch

@@ -14,7 +14,7 @@ public class HealthDrop : Area2D
         Player player = (Player)body;
         if(player.currentHealth < gameState.maxHealth)
         {
-            player.currentHealth+=1;
+            player.currentHealth+=1; //TODO: Add a health pickup animation
             QueueFree();
         }
     }
