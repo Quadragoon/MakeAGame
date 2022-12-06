@@ -3,28 +3,15 @@ using System;
 
 public class UpgradeCapsule : Area2D
 {
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text";
-    // WeightedGroup<UpgradeOption> group = new WeightedGroup<UpgradeOption>(){
-    //     {new UpgradeOption("Health", "Common"), 100}, 
-    //     {new UpgradeOption("Speed", "Common"), 100}, 
-    //     {new UpgradeOption("Damage", "Epic"), 20}, 
-    //     {new UpgradeOption("Attack Speed", "Epic"), 20},
-    //     {new UpgradeOption("Additional Missile", "Extraordinary"), 10}, 
-    //     {new UpgradeOption("Explosion Radius", "Rare"), 50}, 
-    //     {new UpgradeOption("Boost Cooldown", "Uncommon"), 75},
-    //     {new UpgradeOption("Large damage boost at a cost", "Cursed", true), 1},
-    // };
     WeightedGroup<UpgradeOption> group = new WeightedGroup<UpgradeOption>(){
         {new UpgradeOption("Health", "Common"), 100}, 
         {new UpgradeOption("Speed", "Common"), 100}, 
-        {new UpgradeOption("Damage", "Epic"), 100}, 
-        {new UpgradeOption("Attack Speed", "Epic"), 100},
-        {new UpgradeOption("Additional Missile", "Extraordinary"), 100}, 
-        {new UpgradeOption("Explosion Radius", "Rare"), 100}, 
-        {new UpgradeOption("Boost Cooldown", "Uncommon"), 100},
-        {new UpgradeOption("Large damage boost at a cost", "Cursed", true), 100},
+        {new UpgradeOption("Damage", "Epic"), 25}, 
+        {new UpgradeOption("Attack Speed", "Epic"), 25},
+        {new UpgradeOption("Additional Missile", "Extraordinary"), 10}, 
+        {new UpgradeOption("Explosion Radius", "Rare"), 50}, 
+        {new UpgradeOption("Boost Cooldown", "Uncommon"), 75},
+        {new UpgradeOption("Large damage boost at a cost", "Cursed", true), 5},
     };
     
     private GameState gameState;
@@ -32,7 +19,6 @@ public class UpgradeCapsule : Area2D
     private EndlessMode endlessMode;
     private AnimationPlayer animationPlayer;
     private Label upgradeLabel;
-
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
@@ -58,8 +44,13 @@ public class UpgradeCapsule : Area2D
 
     private void ApplyUpgrade(UpgradeOption option)
     {   
-        //TODO: Add upgrade animation
-        //TODO: A label that shows the upgrade, theme depending on rarity
+        if(option.Name == "Large damage boost at a cost" && gameState.stormtrooper) //Prevents player from getting the same curse twice
+        {
+            while(option.Name == "Large damage boost at a cost")
+            {
+                option = group.GetItem();
+            }
+        }
         upgradeLabel.Text = option.Name;
         switch(option.Rarity)
         {

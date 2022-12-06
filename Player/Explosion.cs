@@ -14,10 +14,11 @@ public class Explosion : Node2D
 
     public void _OnArea2DBodyEntered(Node body)
     {
-        //explosion.Disabled = true;
+        explosion.SetDeferred("disabled", true);
         if(body.IsInGroup("Enemies"))
         {
             EnemyBase enemy = (EnemyBase)body;
+            enemy.DamageAnimation();
             enemy.health-=damage;
         }
     }

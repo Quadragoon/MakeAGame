@@ -28,19 +28,11 @@ public class UpgradeScreen : Control
     private Label objective;
     
     WeightedGroup<UpgradeOption> group = new WeightedGroup<UpgradeOption>(){
-        {new UpgradeOption("Health", "Common"), 100}, 
-        {new UpgradeOption("Speed", "Common"), 100}, 
-        {new UpgradeOption("Damage", "Epic"), 5}, 
-        {new UpgradeOption("Attack Speed", "Epic"), 5},
-        {new UpgradeOption("Additional Missile", "Extraordinary"), 1}, 
-        {new UpgradeOption("Explosion Radius", "Rare"), 10}, 
-        {new UpgradeOption("Boost Cooldown", "Uncommon"), 25},
-        {new UpgradeOption("Large damage boost at a cost", "Cursed", true), 1},
+        //TODO: Add unique items, such as the current right click
+        //Drones
+        //Cluster explosion chance for normal attacks
+
     };
-    
-    //TODO: Add random upgrades
-    //Upgrade health, speed, boostbar in some way, damage
-    //Add different rarities to them
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -110,55 +102,37 @@ public class UpgradeScreen : Control
             case "Common":
                 switch(option.Name)
                 {
-                    case "Health":
-                        gameState.UpgradeHealth();
-                        break;
-                    case "Speed":
-                        gameState.UpgradeSpeed();
-                        break;
+                    
                 }
                 break;
             case "Uncommon":
                 switch(option.Name)
                 {
-                    case "Boost Cooldown":
-                        gameState.UpgradeBoostCooldown();
-                        break;
+                    
                 }
                 break;
             case "Rare":
                 switch(option.Name)
                 {
-                    case "Explosion Radius":
-                        gameState.UpgradeExplosionRadius();
-                        break;
+                    
                 }
                 break;
             case "Epic":
                 switch(option.Name)
                 {
-                    case "Damage":
-                        gameState.UpgradeDamage();
-                        break;
-                    case "Attack Speed":
-                        gameState.UpgradeAttackSpeed();
-                        break;
+                    
                 }
                 break;
             case "Extraordinary":
                 switch(option.Name)
                 {
-                    case "Additional Missile":
-                        gameState.UpgradeAdditionalMissile();
-                        break;
+                    
                 }
                 break;
             case "Cursed":
                 switch(option.Name)
                 {
-                    case "Large damage boost at a cost":
-                        gameState.WildShots();
-                        break;
+                    
                 }
                 break;
 

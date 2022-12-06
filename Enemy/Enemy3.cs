@@ -3,10 +3,6 @@ using System;
 
 public class Enemy3 : EnemyBase
 {
-    private Vector2 direction = Vector2.Zero;
-    private GameState gameState;
-    
-
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
@@ -14,6 +10,7 @@ public class Enemy3 : EnemyBase
         speed = 350.0f * (1.0f + (gameState.level-1.0f) * 0.05f); //Derived from EnemyBase
         health = 2.0f * (1.0f + (gameState.level-1.0f) * 0.05f);
         damage = 1 * (1.0f + (gameState.level-1.0f) * 0.05f);
+        base._Ready();
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -23,9 +20,11 @@ public class Enemy3 : EnemyBase
         if(health <=0)
         {
             //Todo: Add on death animation
+            //TODO: Add everything to EnemyBase -> STOP CODE DUPE
             game.score+=100;
             game.kills++; //TODO: CHANGE THIS
             gameState.positionOfLastEnemyKilled = GlobalPosition;
+            SpawnItems();
             QueueFree();
         }
         Node2D player = GetNode<Node2D>("../../Player");

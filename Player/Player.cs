@@ -13,7 +13,7 @@ public class Player : Node2D
     private int maxSpeed;
     private Vector2 velocity;
     private float maxHealth;
-    private float currentHealth;
+    public float currentHealth = 5.0f;
     private bool invinsible = false;
     private AudioStreamPlayer2D engineAudioPlayer;
 
@@ -45,7 +45,6 @@ public class Player : Node2D
         superAttackReadyAudioPlayer = GetNode<AudioStreamPlayer>("SuperAttackReadyAudioPlayer");
         invisibilityTimer = GetNode<Timer>("InvisibilityTimer");
         boostBar = GetNode<TextureProgress>("/root/EndlessMode/HUD/BarContainer/BoostBar");
-        
         UpdateAttributes();
     }
 
@@ -54,12 +53,11 @@ public class Player : Node2D
         Acceleration = gameState.acceleration;
         BoostPower = gameState.boostPower;
         maxHealth = gameState.maxHealth;
-        currentHealth = maxHealth;
+        //currentHealth = maxHealth;
         healthBar.MaxValue = gameState.maxHealth;
-        healthBar.Value = healthBar.MaxValue;
+        //healthBar.Value = healthBar.MaxValue;
         maxSpeed = (int)(Acceleration * 0.125f);
-        BoostCooldown = gameState.boostCooldown;
-        
+        BoostCooldown = gameState.boostCooldown;  
         Control barSpacing = GetNode<Control>("/root/EndlessMode/HUD/BarContainer/BarSpacing");
         healthBar.SizeFlagsStretchRatio = Mathf.Clamp(0.2f * gameState.maxHealth, 1, 6);
         barSpacing.SizeFlagsStretchRatio = Mathf.Clamp(6 - (0.2f * gameState.maxHealth), 0, 5);
@@ -68,6 +66,7 @@ public class Player : Node2D
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
+        healthBar.Value = currentHealth;
         if(currentHealth <= 0)
         {      
             ClearGameState();
@@ -101,9 +100,6 @@ public class Player : Node2D
             bool stormtrooper = gameState.stormtrooper;
             float fireangle = 0.2f;
             int extraMissilesFired=0;
-
-            
-
             //Check how many extra missiles will be fired 
             for (int i = 0; i < gameState.missileMultiplierChance/100; i++){
                 if((rand.Next(0, 100)) < gameState.missileMultiplierChance - 100*i)
@@ -111,7 +107,6 @@ public class Player : Node2D
                     extraMissilesFired++; 
                 }
             }
-
             //Fire extra missiles with different angles depending on if even or odd
             for (int i = 0; i < extraMissilesFired; i++){
                 int isEven = 0;
@@ -134,7 +129,6 @@ public class Player : Node2D
                 }
                     GetParent().AddChild(additionalMissile);
             }
-
             //fire the last/first missile in the middle or to the side depending on if even or odd
             if(extraMissilesFired%2 == 0 && !stormtrooper){
 
@@ -149,15 +143,11 @@ public class Player : Node2D
             newMissile.GlobalPosition = GlobalPosition;
             newMissile.Rotation = Rotation - fireangle;
             GetParent().AddChild(newMissile);
-
-            
-
         }
         else
         {
             fireDelay-=delta;
         }
-
         if (Input.IsActionJustPressed("fire_secondary"))
         {   
             if(gameState.superAttackCooldown <= 0f)
@@ -166,7 +156,6 @@ public class Player : Node2D
                 SuperAttack();
             }
         }
-
         if (currentBoostCooldown > 0)
         {
             currentBoostCooldown = (delta >= currentBoostCooldown) ? 0 : currentBoostCooldown-delta; // this is a way to make sure we don't count below 0
@@ -181,7 +170,6 @@ public class Player : Node2D
             currentBoostTimer = BoostTime;
             boostDirection = movementInput.Normalized();
         }
-
         //TODO: add unique bar and cooldown sound to superattack
         if (gameState.superAttackCooldown > 0)
         {
@@ -225,7 +213,7 @@ public class Player : Node2D
 
     public void ClearGameState()
     {
-        var gameState = GetNode<GameState>("../../GameState");
+        //var gameState = GetNode<GameState>("../../GameState");
         gameState.ClearGameState();
     }
 }

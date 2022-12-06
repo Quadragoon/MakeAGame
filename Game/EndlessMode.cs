@@ -13,7 +13,7 @@ public class EndlessMode : Game
     private const int TIME_PER_LEVEL = 1;
     private const int KILLS_PER_LEVEL = 5;
     private bool offerUpgradeSwitch = true;
-    private bool bossSwitch = false;
+    public bool bossSwitch = false;
     
     WeightedGroup<string> group = new WeightedGroup<string>(){
         {"Survival", 0}, //Value indicates weight, i.e. chance to happen
@@ -50,7 +50,6 @@ public class EndlessMode : Game
 
     public void _OnSurvivalTimerTimeout()
     {
-        //TODO: Add end of level animation -> maybe animate scene transition
         OfferUpgrade();
     }
 
@@ -86,10 +85,29 @@ public class EndlessMode : Game
         GetNode("/root/EndlessMode").AddChild(upgradeCapsule);
     }
 
+    public void SpawnHealth()
+    {
+        PackedScene healthScene = ResourceLoader.Load("res://Items/HealthDrop.tscn") as PackedScene;
+        HealthDrop healthDrop = (HealthDrop)healthScene.Instance();
+        healthDrop.GlobalPosition = gameState.positionOfLastEnemyKilled;
+        GetNode("/root/EndlessMode").GetNode("Items").AddChild(healthDrop);
+    }
+    public void DeleteChildren(Node node)
+    {
+        foreach(Node child in node.GetChildren())
+        {
+            child.QueueFree();
+        }
+    }
+
     public void NextLevel()
     {
         //mobTimer.Paused = false;
         //mobTimer.WaitTime /= 1.05f; //Faster enemy spawn rate
+        if(GetNode("/root/EndlessMode").GetNode("Items").GetChildCount() > 0)
+        {
+            DeleteChildren(GetNode("/root/EndlessMode").GetNode("Items")); //Remove all items
+        }
         gameState.mobTimer /= 1.05f;
         offerUpgradeSwitch = true; //Reset offerUpgradeSwitch
         if(level % 5 == 0) //Every 5th level spawn a boss. TODO: Add superbosses every 10th level?
@@ -128,6 +146,7 @@ public class EndlessMode : Game
             offerUpgradeSwitch = false;
             level++;
             bossSwitch = false;
+            //TODO: Change to UpgradeScreen when items are implemented
             OfferUpgrade();
         }
     }

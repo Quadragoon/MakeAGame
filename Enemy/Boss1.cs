@@ -3,8 +3,6 @@ using System;
 
 public class Boss1 : EnemyBase
 {
-    private Vector2 direction = Vector2.Zero;
-    private GameState gameState;
     private EndlessMode endlessMode;
     
 
@@ -16,6 +14,7 @@ public class Boss1 : EnemyBase
         speed = 350 * (1.0f + (gameState.level-1.0f) * 0.04f); //Derived from EnemyBase
         health = 30 * (1.0f + (gameState.level-1.0f) * 2.0f);
         damage = 3 * (1.0f + (gameState.level-1.0f) * 0.5f);
+        base._Ready();
     }
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
